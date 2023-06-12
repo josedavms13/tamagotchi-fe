@@ -1,26 +1,25 @@
-import {useRef} from "react";
-import {WebSockets} from "./Classes/WebSockets/WebSockets.ts";
+import {Screen} from "./Components/screen/Screen.tsx";
+import {Topbar} from "./Components/topbar/Topbar.tsx";
+import {Scenario} from "./Components/scenario/Scenario.tsx";
+import {PlayerCharacter} from "./Components/playerCharacter/PlayerCharacter.tsx";
+import {CharacterProvider} from "./context/Character/CharacterContext.tsx";
 
 function App() {
-
-   const sockets = useRef<WebSockets>(
-      new WebSockets("http://localhost", 4500)
-   );
-
    return (
       <>
-         <button onClick={ () => sockets.current.connect(
-            {
-               onError: () => console.log("Connected"),
-               onSuccess: () => console.log("Disconnected")
-            }
-         ) }>Connect
-         </button>
+         <Screen>
+            <CharacterProvider>
+               <Topbar>
+               </Topbar>
+            </CharacterProvider>
+            <Scenario>
+               <div/>
+               <CharacterProvider>
+                  <PlayerCharacter />
+               </CharacterProvider>
 
-         <button onClick={ () => sockets.current.move() }>
-            Move
-         </button>
-
+            </Scenario>
+         </Screen>
       </>
    );
 }

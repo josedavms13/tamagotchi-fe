@@ -17,6 +17,5 @@ module.exports = {
       "semi": [2, "always"],
       "quotes": [2, "double"],
       "template-curly-spacing": ["error", "always"],
-      "no-explicit-any" : ["never"]
    },
 };
