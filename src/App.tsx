@@ -1,25 +1,44 @@
-import {useRef} from "react";
-import {WebSockets} from "./Classes/WebSockets/WebSockets.ts";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {useEffect, useState} from "react";
+import {io} from "socket.io-client";
+import {SocketsEvents} from "./Classes/WebSockets/SocketsEvents.ts";
+
+
+const socketUrl = "http://localhost:4545";
 
 function App() {
 
-   const sockets = useRef<WebSockets>(
-      new WebSockets("http://localhost", 4500)
-   );
+   const [socket, setSocket] = useState<any>();
+   const [socketConnected, setSocketConnected] = useState(false);
+
+   useEffect(() => {
+      if (socket) {
+         socket.on(SocketsEvents.SuccessConnect, (data) => {
+            console.log(data);
+            setSocketConnected(true);
+         });
+         socket.on(SocketsEvents.InternalMessage, (data) => {
+            console.log(data);
+         });
+         console.log(socket);
+      }
+   }, [socket]);
+
+   function connect() {
+      setSocket(io(socketUrl));
+   }
 
    return (
       <>
-         <button onClick={ () => sockets.current.connect(
-            {
-               onError: () => console.log("Connected"),
-               onSuccess: () => console.log("Disconnected")
-            }
-         ) }>Connect
+         <button onClick={ connect }>connect</button>
+         <button onClick={ () => {
+            socket.disconnect();
+            setSocket(null);
+         } }>disconnect
          </button>
-
-         <button onClick={ () => sockets.current.move() }>
-            Move
-         </button>
+         <div>
+            { socketConnected ? "Connected" : "not connected" }
+         </div>
 
       </>
    );
