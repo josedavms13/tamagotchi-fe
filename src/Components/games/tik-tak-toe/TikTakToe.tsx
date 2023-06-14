@@ -2,50 +2,14 @@ import {useEffect, useState} from "react";
 import "./tikTakToe.css";
 import {ITicTacFieldData} from "./tikTakToeTypes.ts";
 import {Field} from "./field/Field.tsx";
+import {useTicTacToe} from "./useTicTac/UseTicTac.tsx";
+import {v4} from "uuid";
 
 export function TikTakToe() {
 
-   const [fields, setFields] = useState<ITicTacFieldData[]>([
-      {
-         fieldData: "",
-         isLocked: false,
-         index: 0
-      }, {
-         fieldData: "",
-         isLocked: false,
-         index: 1
-      }, {
-         fieldData: "",
-         isLocked: false,
-         index: 2
-      }, {
-         fieldData: "",
-         isLocked: false,
-         index: 3
-      }, {
-         fieldData: "",
-         isLocked: false,
-         index: 4
-      }, {
-         fieldData: "",
-         isLocked: false,
-         index: 5
-      }, {
-         fieldData: "",
-         isLocked: false,
-         index: 6
-      }, {
-         fieldData: "",
-         isLocked: false,
-         index: 7
-      }, {
-         fieldData: "",
-         isLocked: false,
-         index: 8
-      },
-   ]);
+   const {fields, playerMove, error} = useTicTacToe({userName: "Juan"});
 
-   const [turnA, setTurnA] = useState<boolean>(true);
+
    const [rowsData, setRowsData] = useState<ITicTacFieldData[][]>([]);
 
    useEffect(() => {
@@ -60,6 +24,7 @@ export function TikTakToe() {
 
    function markField(fieldIndex: number) {
       console.log(fieldIndex);
+      playerMove(fieldIndex);
    }
 
    return (
@@ -67,10 +32,10 @@ export function TikTakToe() {
          {
             rowsData && rowsData.length > 0 &&
             rowsData.map((row: ITicTacFieldData[]) => (
-               <div className="row">
+               <div key={v4()} className="row">
                   {
                      row.map((field: ITicTacFieldData) => (
-                        <Field id={ field.index } fieldMark={ field.fieldData } isLocked={ field.isLocked }
+                        <Field key={v4()} id={ field.index } fieldMark={ field.fieldData } isLocked={ field.isLocked }
                            onFieldSelected={ markField }/>
                      ))
                   }

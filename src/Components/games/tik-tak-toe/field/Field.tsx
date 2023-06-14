@@ -11,6 +11,7 @@ export function Field({fieldMark, isLocked, id, onFieldSelected}: IFieldBox) {
    return (
       <div className={ "square" } onClick={ handleFieldClick }>
          <span>{ fieldMark }</span>
+         { id }
       </div>
    );
-};
+}
