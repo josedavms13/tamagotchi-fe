@@ -1,10 +1,12 @@
 export const SocketsEvents = {
-   Connect: "connect",
+   Connect: "connection",
+   ConnectionError: "connectionError",
    Disconnect: "forceDisconnect",
    InternalMessage: "internalMessage",
+   AddPlayer: "addPlayer",
    SuccessConnect: "successConnect",
    MinPlayersFulfilled: "minPlayersFulfilled",
-};
+} as const;
 
 export const SocketResultCode = {
    maxPlayers: {name: "maxPlayers", code: 402},
