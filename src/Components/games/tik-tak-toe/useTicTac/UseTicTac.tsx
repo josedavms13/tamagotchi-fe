@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {ITicTacPlayer, IUseTicTac} from "./useTicTac.types.ts";
-import {ITicTacFieldData} from "../tikTakToeTypes.ts";
+import {ITicTacFieldData, tFieldData} from "../tikTakToeTypes.ts";
 
 
 export const useTicTacToe = ({userName}: IUseTicTac) => {
@@ -20,24 +20,25 @@ export const useTicTacToe = ({userName}: IUseTicTac) => {
          id: "1",
          userName: getIaName(),
          cameCharacter: "IA"
-      }
+      },
    ]);
-
-   useEffect(() => {
-      console.log(`Turn ${ turnPlayerIndex }`);
-      setIsPlayerLocked(turnPlayerIndex !== 0);
-   }, [turnPlayerIndex]);
 
 
    function changeTurns(): void {
-      setTurnPlayerIndex((pev) => {
-         if (pev === players.length - 1) {
-            return 0;
+
+      setTurnPlayerIndex((prev) => {
+         if (prev + 1 < players.length) {
+            return prev + 1;
          } else {
-            return pev + 1;
+            return 0;
          }
-      });
+      }
+      );
    }
+
+   useEffect(() => {
+      console.log(turnPlayerIndex);
+   }, [turnPlayerIndex]);
 
    function showError(error: string): void {
       setError(error);
@@ -46,26 +47,39 @@ export const useTicTacToe = ({userName}: IUseTicTac) => {
       }, 1000);
    }
 
-   function doMove(playerId: string, fieldId: number): void {
-      console.log(`Move from player ${ playerId } to field ${ fieldId }`);
-      if (fieldId < 0 || fieldId > fields.length) {
-         showError("Field id is out of range");
-         return;
-      }
-      const foundPlayerIndex = players.findIndex((player) => player.id === playerId);
-      if (foundPlayerIndex === -1) {
-         showError("Player not found");
-         return;
-      }
-      const fieldsCopy = structuredClone(fields);
-      const foundField = fieldsCopy.findIndex((field) => field.index === fieldId);
-      if (!fieldsCopy[foundField].isLocked) {
-         fieldsCopy[foundField].fieldData = players[turnPlayerIndex].cameCharacter;
-         fieldsCopy[foundField].isLocked = true;
-         setFields(fieldsCopy);
-         changeTurns();
-      }
+   function doMove(turnPlayerIndex: number, fieldIndex: number, gameCharacter: tFieldData): void {
+      markField(fieldIndex, gameCharacter);
+      changeTurns();
+      console.log({turnPlayerIndex});
+
    }
+
+   useEffect(() => {
+      if (turnPlayerIndex !== 0) {
+         iAMove();
+         setIsPlayerLocked(true);
+
+      } else {
+         setIsPlayerLocked(false);
+      }
+   }, [turnPlayerIndex]);
+
+   function markField(fieldId: number, gameCharacter: tFieldData) {
+      if (fieldId < 0 || fieldId > fields.length) {
+         showError("fieldId incorrect");
+         return;
+      }
+
+      const fieldIndex = fields.findIndex((field) => field.index === fieldId);
+      const fieldCopy = structuredClone(fields);
+      fieldCopy[fieldIndex].fieldData = gameCharacter;
+      fieldCopy[fieldIndex].isLocked = true;
+      setFields(fieldCopy);
+   }
+
+   useEffect(() => {
+      console.log({turnPlayerIndex});
+   }, [turnPlayerIndex]);
 
    function getIaName(): string {
       const randomIndex = Math.floor(Math.random() * possibleIaNames.length);
@@ -78,13 +92,15 @@ export const useTicTacToe = ({userName}: IUseTicTac) => {
       const fieldsCopy = structuredClone(fields);
       const unlockedFields = fieldsCopy.filter((field) => !field.isLocked);
       const randomPick = Math.floor(Math.random() * unlockedFields.length);
-      doMove("1", randomPick);
+      console.log("IA move", {unlockedFields});
+      doMove(1, randomPick, "IA");
+
    }
 
    function playerMove(fieldIndex: number): void {
       if (!isPlayerLocked) {
-         doMove("0", fieldIndex);
-         iAMove();
+         doMove(0, fieldIndex, "X");
+
       }
    }
 

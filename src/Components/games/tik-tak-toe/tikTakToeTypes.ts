@@ -9,4 +9,4 @@ export interface ITicTacFieldData {
 
 
 
-type tFieldData = "X" | "O" | "IA" | "";
+export type tFieldData = "X" | "O" | "IA" | "";

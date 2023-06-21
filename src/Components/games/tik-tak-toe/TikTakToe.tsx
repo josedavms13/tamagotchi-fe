@@ -23,7 +23,6 @@ export function TikTakToe() {
    }, [fields]);
 
    function markField(fieldIndex: number) {
-      console.log(fieldIndex);
       playerMove(fieldIndex);
    }
 
