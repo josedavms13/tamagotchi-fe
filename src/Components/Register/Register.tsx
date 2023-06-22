@@ -1,4 +1,5 @@
 import {IResgisterTypes} from "./resgisterTypes.ts";
+import "./resgisterStyles.css"
 
 export function Register({username, password, petName, perColor}: IResgisterTypes) {
    return(
