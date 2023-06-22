@@ -4,15 +4,15 @@ import "./resgisterStyles.css"
 export function Register({username, password, petName, perColor}: IResgisterTypes) {
    return(
       <div className="register">
-         <div className="userName">
+         <div className="infoSpace">
             <label form="userName">UserName</label>
             <input type="text">{username}</input>
          </div>
-         <div className="password">
+         <div className="infoSpace">
             <label form="password">Password</label>
             <input type="password">{password}</input>
          </div>
-         <div className="petName">
+         <div className="infoSpace">
             <label form="petName">PetName</label>
             <input type="text">{petName}</input>
          </div>

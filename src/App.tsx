@@ -1,5 +1,6 @@
 import {useRef} from "react";
 import {WebSockets} from "./Classes/WebSockets/WebSockets.ts";
+import {Register} from "./Components/Register/Register.tsx";
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
 
    return (
       <>
+         <Register username={null} password={null} petName={null} perColor={null} />
          <button onClick={ () => sockets.current.connect(
             {
                onError: () => console.log("Connected"),

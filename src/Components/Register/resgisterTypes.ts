@@ -1,7 +1,7 @@
 export interface IResgisterTypes {
-   username:string,
-   password:string,
-   petName: string,
-   perColor: "blue" | "red" | "orange" | "green"
+   username:string | null,
+   password:string | null,
+   petName: string | null,
+   perColor: "blue" | "red" | "orange" | "green" | null
 
 }
