@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {io} from "socket.io-client";
 import {SocketsEvents} from "./Classes/WebSockets/SocketsEvents.ts";
 import {TicTacEvents} from "./Classes/TicTacToe/TicTacToeEvents.ts";
+import {startSession} from "./services/session.ts";
+import {IOnConnectionQuery} from "./Classes/WebSockets/Sockets.types.ts";
 
 
 const socketUrl = "http://localhost:4545";
+
+const connectionAttemptsLimit = 3;
 
 function App() {
 
@@ -13,7 +17,10 @@ function App() {
    const [socketConnected, setSocketConnected] = useState(false);
 
    const [playerName, setPlayerName] = useState("");
+   const [sessionId, setSessionId] = useState<number | null>(null);
    const [areMinPlayerRequired, setAreMinPlayerRequired] = useState(false);
+
+   const connectionAttempts = useRef(0);
 
    useEffect(() => {
       if (socket) {
@@ -28,17 +35,32 @@ function App() {
             console.log(data);
          });
 
+         socket.on(SocketsEvents.ConnectError, () => {
+            if (connectionAttempts.current < connectionAttemptsLimit) {
+               connectionAttempts.current += 1;
+            } else {
+               socket.disconnect();
+               setSocket(null);
+            }
+         });
+
          console.log(socket);
       }
    }, [playerName, socket]);
 
-   function connect() {
+   function connect(onConnectQuery: IOnConnectionQuery) {
+      console.log(onConnectQuery);
+      const stringedQuery = JSON.stringify(onConnectQuery);
       if (playerName.length > 0) {
-         setSocket(io(socketUrl, {
-            query: {
-               playerName,
-            },
-         }));
+         try {
+            setSocket(io(socketUrl, {
+               query: {
+                  body: stringedQuery,
+               }
+            }));
+         } catch (e) {
+            setSocket(null);
+         }
       } else {
          alert("Please enter your name");
       }
@@ -52,11 +74,30 @@ function App() {
       }
    }
 
+   function createGame() {
+      startSession(roomName)
+         .then(data => {
+            console.log(data);
+            setSessionId(data.data.dbData);
+         });
+   }
+
+   useEffect(() => {
+      console.log(sessionId);
+   }, [sessionId]);
+
+   const [roomName, setRoomName] = useState("");
 
    return (
       <>
          <input type="text" onChange={ (e) => setPlayerName(e.target.value) }/>
-         <button onClick={ connect }>connect</button>
+         <button onClick={ () => connect({
+            query: {
+               playerName: playerName,
+               roomName: roomName
+            }
+         }) }>connect
+         </button>
          <button onClick={ () => {
             socket.disconnect();
             setSocket(null);
@@ -65,6 +106,13 @@ function App() {
          <div>
             { socketConnected ? "Connected" : "not connected" }
          </div>
+
+         <label htmlFor={ "room-name" }>Room Name</label>
+         <input id={ "room-name" } type="text" onChange={ (event) => setRoomName(event.target.value) }/>
+
+         <button onClick={ createGame }>
+            Create game
+         </button>
 
          <div>
             <input type="number" onChange={ (e) => setFieldNumber(Number(e.target.value)) }/>

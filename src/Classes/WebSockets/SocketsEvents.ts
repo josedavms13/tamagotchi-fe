@@ -1,5 +1,6 @@
 export const SocketsEvents = {
    Connect: "connection",
+   ConnectError: "connect_error",
    ConnectionError: "connectionError",
    Disconnect: "forceDisconnect",
    InternalMessage: "internalMessage",
