@@ -1,13 +1,13 @@
 
-import "./header.css"
-import gameIcon from "../../assets/sprites/gameIcon.png"
-import foodIcon from "../../assets/sprites/foodImage.jpg"
+import "./header.css";
+import gameIcon from "../../assets/sprites/gameIcon.png";
+import foodIcon from "../../assets/sprites/foodImage.jpg";
 export function Header({petName, age}:{petName:string, age:number}) {
    function OnPlayerFormClick() {
       console.log("go to play");
    }
    function OnFeedClick() {
-      console.log("gif food")
+      console.log("gif food");
    }
    return(
       <div className={"header"}>
@@ -27,5 +27,5 @@ export function Header({petName, age}:{petName:string, age:number}) {
          </div>
 
       </div>
-   )
+   );
 }
