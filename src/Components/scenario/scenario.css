@@ -1,0 +1,16 @@
+.stacksSection{
+    display: flex;
+    justify-content: end;
+    align-content: end;
+    justify-items: end;
+    width: 80vw;
+
+}
+
+.hungry{
+    width: 50%;
+}
+
+.funLevel{
+    width: 50%;
+}

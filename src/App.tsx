@@ -1,5 +1,6 @@
 import {useRef} from "react";
 import {WebSockets} from "./Classes/WebSockets/WebSockets.ts";
+import {Screen} from "./Components/screen/Screen.tsx";
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
 
    return (
       <>
+         <Screen />
          <button onClick={ () => sockets.current.connect(
             {
                onError: () => console.log("Connected"),

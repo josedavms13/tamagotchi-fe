@@ -1,0 +1,10 @@
+.stacks{
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: 13%;
+    align-items: center;
+    justify-content: space-evenly;
+    background: rgb(122,215,0);
+    background: linear-gradient(0deg, rgba(122,215,0,1) 40%, rgba(59,171,253,1) 53%, rgba(59,171,253,1) 100%);
+}
