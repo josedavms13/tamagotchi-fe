@@ -45,7 +45,7 @@ export function Sky() {
       setInterval(() => {
          setCloudArray((prev) => {
             const arrayCopy = [...prev];
-            if (arrayCopy.length < 10) {
+            if (arrayCopy.length < 10 ) {
                arrayCopy.push({
                   url: cloudImagesArray[getRandomIndex()].url,
                   id: randomId,
@@ -67,9 +67,8 @@ export function Sky() {
       console.log(`Deleting ${ cloudId }`);
       setCloudArray((prev) => {
          const arrayCopy = [...prev];
-
          console.log(arrayCopy, "arrayCopy");
-         return arrayCopy.filter((element) => element.id !== cloudId);
+         return arrayCopy.filter((element)=>element.id!==cloudId);
 
       });
    }
