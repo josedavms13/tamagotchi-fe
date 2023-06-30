@@ -2,7 +2,7 @@ import "./stack.css"
 import iconFood from "../../../../assets/sprites/foodImage.jpg"
 import happyFace from "../../../../assets/sprites/funnyFace.avif"
 
-export function Stacks() {
+export function Stats() {
    return(
       <div className={"stacks"}>
          <div className={"hungry"}>

@@ -1,9 +1,17 @@
+.scenario{
+    width: 95vw;
+    height: 80vh;
+    background-image: url("../../assets/sprites/backgroundScenary.png");
+    background-repeat: no-repeat;
+    background-size: 1300px 550px;
+}
+
+
 .stacksSection{
     display: flex;
     justify-content: end;
     align-content: end;
     justify-items: end;
-    width: 80vw;
 
 }
 

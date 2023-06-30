@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600&display=swap');
+
 .screen{
     background-color: cadetblue;
     height: 100vh;
@@ -5,4 +7,5 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
+    font-family: 'Belanosima', sans-serif;
 }

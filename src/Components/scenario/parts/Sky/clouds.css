@@ -1,0 +1,16 @@
+.cloud {
+    position: absolute;
+    animation-name: cloudAnimation;
+    animation-duration: 10s;
+    animation-direction: alternate-reverse;
+    animation-iteration-count: 1;
+    width: 200px;
+    height: 80px;
+}
+
+img{
+    object-fit: contain;
+    width: 100%;
+}
+
+

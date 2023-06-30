@@ -1,8 +1,9 @@
 .stacks{
+    border: black 4px double;
     display: flex;
     flex-direction: column;
     height: 80vh;
-    width: 13%;
+    width: 10%;
     align-items: center;
     justify-content: space-evenly;
     background: rgb(122,215,0);

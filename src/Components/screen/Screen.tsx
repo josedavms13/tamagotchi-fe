@@ -1,7 +1,6 @@
 import {Header} from "../header/Header.tsx";
 import {Scenario} from "../scenario/Scenario.tsx";
-import {Stacks} from "../scenario/parts/Stacks/Stacks.tsx";
-import "./screen.css"
+import "./screen.css";
 
 export function Screen() {
    return (
@@ -11,9 +10,6 @@ export function Screen() {
          </div>
          <div>
             <Scenario />
-         </div>
-         <div>
-            <Stacks />
          </div>
 
       </div>

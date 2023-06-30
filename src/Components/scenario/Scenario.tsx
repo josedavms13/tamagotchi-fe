@@ -1,17 +1,16 @@
-import {Clouds} from "./parts/Clouds.tsx";
-import {Grass} from "./parts/Grass.tsx";
-import {Stacks} from "./parts/Stacks/Stacks.tsx";
+import {Sky} from "./parts/Sky/Sky.tsx"
+import {Stats} from "./parts/Stacks/Stats.tsx";
 import "./scenario.css"
 
 export function Scenario() {
+
    return (
       <div className={"scenario"}>
          <div className={"stacksSection"}>
-            <Stacks />
+            <Stats />
          </div>
          <div className={"space"}>
-            <Clouds />
-            <Grass />
+            <Sky/>
          </div>
 
 
