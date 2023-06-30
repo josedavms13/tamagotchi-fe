@@ -9,3 +9,8 @@
     align-items: center;
     font-family: 'Belanosima', sans-serif;
 }
+
+.infoSection{
+    display: flex;
+    flex-direction: row;
+}

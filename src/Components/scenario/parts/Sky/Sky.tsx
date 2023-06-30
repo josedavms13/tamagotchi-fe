@@ -60,7 +60,7 @@ export function Sky() {
    }, [randomId, getRandomIndex, cloudImagesArray, getRandomHeight]);
 
    function getRandomHeight(): number {
-      return Math.floor(Math.random() * 100) + 90;
+      return Math.floor(Math.random() * 100) + 100;
    }
 
    function deleteCloud(cloudId: number) {

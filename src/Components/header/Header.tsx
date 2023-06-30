@@ -2,13 +2,9 @@
 import "./header.css";
 import gameIcon from "../../assets/sprites/gameIcon.png";
 import foodIcon from "../../assets/sprites/foodImage.jpg";
-export function Header({petName, age}:{petName:string, age:number}) {
-   function OnPlayerFormClick() {
-      console.log("go to play");
-   }
-   function OnFeedClick() {
-      console.log("gif food");
-   }
+import {IHeaderComponent} from "./header.types.ts";
+export function Header({petName, age, onHeaderFeed, onHeaderPlayerFormClick}:IHeaderComponent) {
+
    return(
       <div className={"header"}>
          <div className={"petInfo"}>
@@ -16,11 +12,11 @@ export function Header({petName, age}:{petName:string, age:number}) {
             <span>AGE:{age}</span>
          </div>
          <div className={"actionsBar"}>
-            <div className={"game"} onClick={OnPlayerFormClick}>
+            <div className={"game"} onClick={onHeaderPlayerFormClick} >
                <img src={gameIcon} alt={"game"}/>
 
             </div>
-            <div className={"feed"} onClick={OnFeedClick}>
+            <div className={"feed"} onClick={onHeaderFeed}>
                <img src={foodIcon} alt={"food"}/>
             </div>
 
