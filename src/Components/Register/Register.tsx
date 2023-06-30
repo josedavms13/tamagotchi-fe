@@ -1,7 +1,15 @@
 import {IResgisterTypes} from "./resgisterTypes.ts";
 import "./resgisterStyles.css"
+import {useState} from "react";
+import {LoginPage} from "../login/LoginPage.tsx";
 
 export function Register({username, password, petName, perColor}: IResgisterTypes) {
+
+   const [loginClick, setLoginClick] = useState(false)
+   function onLoginClick() {
+      setLoginClick(true)
+   }
+
    return(
       <div className="register">
          <div className="infoSpace">
@@ -27,7 +35,11 @@ export function Register({username, password, petName, perColor}: IResgisterType
          </div>
          <div className="button">
             <button type="submit">Submit</button>
+            <button onClick={onLoginClick}>Login
+               {loginClick && <LoginPage userName={null} password={null}/>}
+            </button>
          </div>
+
       </div>
    )
 }

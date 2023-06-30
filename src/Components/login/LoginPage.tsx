@@ -1,18 +1,34 @@
 import {ILoginPageTypes} from "./loginPageTypes.ts";
-import "./loginPageStyles.css"
+import "./loginPageStyles.css";
+import {useState} from "react";
+import {Home} from "../home/Home.tsx";
 
-export function LoginPage({userName, password}:ILoginPageTypes) {
+export function LoginPage({userName, password}: ILoginPageTypes) {
+   const [homeButtonOn, setHomeButtonOn] = useState(false);
+
+   function onHomeClick() {
+      setHomeButtonOn(true);
+   }
+
    return (
       <div className="loginPage">
          <div className="userName">
-            <label form="userName">userName</label>
-            <input type="text">{userName}</input>
+            <label form="userName">User Name</label>
+            <input type="text" className={ "completeBar" }>{ userName }</input>
          </div>
          <div className="password">
-            <label form={"loginPassword"}>Password</label>
-            <input type="password">{password}</input>
+            <label form={ "loginPassword" }>Password</label>
+            <input type="password" className={ "completeBar" }>{ password }</input>
          </div>
-         <button className={"submitLogin"} type={"submit"}>submit</button>
+         <div className={ "buttons" }>
+            <button className={ "submitLogin" } type={ "submit" }>submit</button>
+            <button onClick={ onHomeClick }> Home
+               {
+                  homeButtonOn && <Home/>
+               }
+            </button>
+         </div>
+
       </div>
-   )
+   );
 }

@@ -1,4 +1,4 @@
 export interface ILoginPageTypes {
-   userName:string,
-   password:string
+   userName:string | null,
+   password:string | null
 }

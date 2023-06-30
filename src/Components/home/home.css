@@ -1,0 +1,17 @@
+
+.mainPage{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    justify-items: center;
+    background-color: burlywood;
+}
+
+.buttons{
+    width: 30%;
+    height: 10%;
+
+}
