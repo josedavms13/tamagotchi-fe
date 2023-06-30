@@ -5,3 +5,5 @@ export interface IResgisterTypes {
    perColor: "blue" | "red" | "orange" | "green" | null
 
 }
+
+export interface IMessage {title: string, message: string}

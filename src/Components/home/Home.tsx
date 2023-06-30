@@ -50,7 +50,7 @@ export function Home() {
          </button>
          <button onClick={ onRegisterButton } className={ "buttons" }> Register
             {
-               registerPageOn && <Register username={ null } password={ null } petName={ null } perColor={ null }/>
+               registerPageOn && <Register onUserRegister={onRegisterButton} onBackToHome={goBackHome}/>
             }
          </button>
       </div>

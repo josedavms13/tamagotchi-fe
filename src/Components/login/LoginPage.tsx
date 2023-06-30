@@ -1,13 +1,37 @@
 import {ILoginPageTypes} from "./loginPageTypes.ts";
 import "./loginPageStyles.css";
 import {useState} from "react";
-import {Home} from "../home/Home.tsx";
 
-export function LoginPage({userName, password}: ILoginPageTypes) {
-   const [homeButtonOn, setHomeButtonOn] = useState(false);
+export function LoginPage({onLoginSubmit, onCancelLogin}: ILoginPageTypes) {
 
-   function onHomeClick() {
-      setHomeButtonOn(true);
+   const [userNameField, setUserNameField] = useState("");
+   const [passwordField, setPasswordField] = useState("");
+
+   const [messageInfo, setMessageInfo] = useState<null | IMessage>(null);
+
+   function submitLoginInfo() {
+      if (!userNameField || userNameField.length < 1) {
+         showMessage({
+            title: "User name must be provided",
+            message: "User name is empty"
+         });
+         return;
+      }
+      if (!passwordField || passwordField.length < 1) {
+         showMessage(({
+            title: "Password must be provided",
+            message: "password name is empty"
+         }));
+         return;
+      }
+      onLoginSubmit(userNameField, passwordField);
+   }
+
+   function showMessage(message: IMessage) {
+      setMessageInfo(message);
+      setTimeout(()=> {
+         setMessageInfo(null);
+      }, 2000);
    }
 
    return (
@@ -21,14 +45,30 @@ export function LoginPage({userName, password}: ILoginPageTypes) {
             <input type="password" className={ "completeBar" }>{ password }</input>
          </div>
          <div className={ "buttons" }>
-            <button className={ "submitLogin" } type={ "submit" }>submit</button>
-            <button onClick={ onHomeClick }> Home
-               {
-                  homeButtonOn && <Home/>
-               }
+            <button className={ "submitLogin" }
+               type={ "submit" }
+               onClick={submitLoginInfo}>
+               submit
+            </button>
+            <button onClick={ onCancelLogin }>
+               Home
+
             </button>
          </div>
 
+      </div>
+   );
+}
+
+interface IMessage {title: string, message: string}
+
+
+
+function Message({title, message}: IMessage) {
+   return (
+      <div>
+         <h6>{title}</h6>
+         <p>{message}</p>
       </div>
    );
 }
