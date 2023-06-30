@@ -1,64 +1,47 @@
-import {useState} from "react";
-import "./tikTakToe.css"
+import {useEffect, useState} from "react";
+import "./tikTakToe.css";
+import {ITicTacFieldData} from "./tikTakToeTypes.ts";
+import {Field} from "./field/Field.tsx";
+import {useTicTacToe} from "./useTicTac/UseTicTac.tsx";
+import {v4} from "uuid";
 
 export function TikTakToe() {
 
-   const [fields, setFilds] = useState<string>("")
+   const {fields, playerMove, error} = useTicTacToe({userName: "Juan"});
 
-   const [turnA, setTurnA] = useState<boolean>(true)
 
-   const [isUsed, setIsUsed] = useState<boolean>(false)
-   function markField(){
-      if(!isUsed){
-         if (turnA){
-            setFilds("X");
-            setTurnA(false);
-            setIsUsed(true)
-         }
-         else {
-            setFilds("O");
-            setTurnA(true);
-            setIsUsed(true)
-         }
+   const [rowsData, setRowsData] = useState<ITicTacFieldData[][]>([]);
+
+   useEffect(() => {
+      const resultArray: ITicTacFieldData[][] = [];
+      const fieldsCopy = [...fields];
+      for (let i = 0; i < 3; i++) {
+         const sliced = fieldsCopy.splice(0, 3);
+         resultArray.push(sliced);
       }
+      setRowsData(resultArray);
+   }, [fields]);
+
+   function markField(fieldIndex: number) {
+      console.log(fieldIndex);
+      playerMove(fieldIndex);
    }
 
-   return(
+   return (
       <div className="general-container">
-         <div className="row">
-            <div className="square" onClick={()=>{markField()}}>
-               <h2>{fields}</h2>
-            </div>
-            <div className="square" onClick={()=>{markField()}}>
-               <h2>{fields}</h2>
-            </div>
-            <div className="square" onClick={()=>{markField()}}>
-               <h2>{fields}</h2>
-            </div>
-         </div>
-         <div className="row">
-            <div className="square" onClick={()=>{markField()}}>
-               <h2>{fields}</h2>
-            </div>
-            <div className="square" onClick={()=>{markField()}}>
-               <h2>{fields}</h2>
-            </div>
-            <div className="square" onClick={()=>{markField()}}>
-               <h2>{fields}</h2>
-            </div>
-         </div>
-         <div className="row">
-            <div className="square" onClick={()=>{markField()}}>
-               <h2>{fields}</h2>
-            </div>
-            <div className="square" onClick={()=>{markField()}}>
-               <h2>{fields}</h2>
-            </div>
-            <div className="square" onClick={()=>{markField()}}>
-               <h2>{fields}</h2>
-            </div>
-         </div>
+         {
+            rowsData && rowsData.length > 0 &&
+            rowsData.map((row: ITicTacFieldData[]) => (
+               <div key={v4()} className="row">
+                  {
+                     row.map((field: ITicTacFieldData) => (
+                        <Field key={v4()} id={ field.index } fieldMark={ field.fieldData } isLocked={ field.isLocked }
+                           onFieldSelected={ markField }/>
+                     ))
+                  }
+               </div>
+            ))
+         }
       </div>
-   )
-
+   );
 }

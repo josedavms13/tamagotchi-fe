@@ -1,5 +1,6 @@
 import {useRef} from "react";
 import {WebSockets} from "./Classes/WebSockets/WebSockets.ts";
+import {TikTakToe} from "./Components/games/tik-tak-toe/TikTakToe.tsx";
 
 function App() {
 
@@ -9,18 +10,7 @@ function App() {
 
    return (
       <>
-         <button onClick={ () => sockets.current.connect(
-            {
-               onError: () => console.log("Connected"),
-               onSuccess: () => console.log("Disconnected")
-            }
-         ) }>Connect
-         </button>
-
-         <button onClick={ () => sockets.current.move() }>
-            Move
-         </button>
-
+         <TikTakToe />
       </>
    );
 }
