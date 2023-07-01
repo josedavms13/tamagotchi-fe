@@ -1,4 +1,5 @@
 export interface IUsePlayerCharacter {
+   isAlive:boolean,
    fun:number,
    heart:number,
    hungry:number,

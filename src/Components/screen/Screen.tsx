@@ -5,6 +5,7 @@ import {Stats} from "../scenario/parts/Stacks/Stats.tsx";
 import {useEffect, useState} from "react";
 import {tScreen} from "./screen.types.ts";
 import {PlayerForm} from "../TikTakToe/playerForm/PlayerForm.tsx";
+import {usePlayerCharacter} from "../../hook/playerCharacter/UsePlayerCharacter.tsx";
 
 export function Screen() {
 
@@ -12,14 +13,16 @@ export function Screen() {
    // region CHARACTER
    const {
       ageCharacter,
-      feed,
       hungryCharacter,
       funCharacter,
       heartCharacter,
       dinosaurCharacter,
+      isAliveCharacter,
+      feed,
+      happinessModify,
       dead,
       toName,
-      toSelectColor
+      toColorSelect,
    } = usePlayerCharacter({
       isAlive: true,
       fun: 100,
@@ -32,8 +35,8 @@ export function Screen() {
    });
 
    useEffect(() => {
-      console.log(funCharacter, "funCharacter", heartCharacter, "heartCharacter", ageCharacter, "ageCharacter", feed, "feed", hungryCharacter, "hungryCharacter", dinosaurCharacter, "dinosaurCharacter", dead, "dead", toName, "toName", toSelectColor, "toSelectColor");
-   }, [funCharacter, heartCharacter, ageCharacter, feed, hungryCharacter, dinosaurCharacter, dead, toName, toSelectColor]);
+      console.log(funCharacter, "funCharacter", heartCharacter, "heartCharacter", ageCharacter, "ageCharacter", feed, "feed", hungryCharacter, "hungryCharacter", dinosaurCharacter, "dinosaurCharacter", dead, "dead", toName, "toName", toColorSelect, "toSelectColor", isAliveCharacter, "isAlive", happinessModify, "happiness");
+   }, [happinessModify, funCharacter, heartCharacter, ageCharacter, feed, hungryCharacter, dinosaurCharacter, dead, toName, toColorSelect, isAliveCharacter ]);
 
    // endregion CHARACTER
 
