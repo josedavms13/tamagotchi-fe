@@ -1,12 +1,14 @@
-import "./App.css";
-import {Home} from "./Components/home/Home.tsx";
+import {Screen} from "./Components/screen/Screen.tsx";
 
 function App() {
 
 
+
    return (
       <>
-         <Home />
+         <Screen />
+
+
       </>
    );
 }
