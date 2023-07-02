@@ -1,11 +1,13 @@
 import {ILoginPageTypes} from "./loginPageTypes.ts";
 import "./loginPageStyles.css";
 import {useState} from "react";
+import {Home} from "../home/Home.tsx";
 
-export function LoginPage({onLoginSubmit, onCancelLogin}: ILoginPageTypes) {
+export function LoginPage({onLoginSubmit, userNameInput, passwordInput}: ILoginPageTypes) {
 
-   const [userNameField, setUserNameField] = useState("");
-   const [passwordField, setPasswordField] = useState("");
+   const [userNameField] = useState(userNameInput);
+   const [passwordField] = useState(passwordInput);
+   const [cancelLoginField, setCancelLogin] = useState(false);
 
    const [messageInfo, setMessageInfo] = useState<null | IMessage>(null);
 
@@ -29,46 +31,56 @@ export function LoginPage({onLoginSubmit, onCancelLogin}: ILoginPageTypes) {
 
    function showMessage(message: IMessage) {
       setMessageInfo(message);
-      setTimeout(()=> {
+      setTimeout(() => {
          setMessageInfo(null);
       }, 2000);
    }
+
+   function goToHomeClick() {
+      setCancelLogin(true);
+   }
+
 
    return (
       <div className="loginPage">
          <div className="userName">
             <label form="userName">User Name</label>
-            <input type="text" className={ "completeBar" }>{ userName }</input>
+            <input type="text" className={ "completeBar" }>{ userNameInput }</input>
          </div>
          <div className="password">
             <label form={ "loginPassword" }>Password</label>
-            <input type="password" className={ "completeBar" }>{ password }</input>
+            <input type="password" className={ "completeBar" }>{ passwordInput }</input>
          </div>
          <div className={ "buttons" }>
             <button className={ "submitLogin" }
                type={ "submit" }
-               onClick={submitLoginInfo}>
+               onClick={ submitLoginInfo }>
                submit
             </button>
-            <button onClick={ onCancelLogin }>
+            <button onClick={ goToHomeClick }>
                Home
-
             </button>
+
+            {
+               cancelLoginField && <Home/>
+            }
          </div>
 
       </div>
    );
 }
 
-interface IMessage {title: string, message: string}
-
+interface IMessage {
+   title: string,
+   message: string
+}
 
 
 function Message({title, message}: IMessage) {
    return (
       <div>
-         <h6>{title}</h6>
-         <p>{message}</p>
+         <h6>{ title }</h6>
+         <p>{ message }</p>
       </div>
    );
 }

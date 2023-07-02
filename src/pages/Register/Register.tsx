@@ -38,9 +38,10 @@ export function Register({username, password, petName, petColor, onUserRegister}
          }));
          return;
       }
-      if (!colorField){
+      if(colorField===undefined){
+
          showMessage(({
-            title: "Color pet must be provided",
+            title: "Pet color must be provided",
             message: "Pet color is empty"
          }));
          return;
@@ -84,19 +85,17 @@ export function Register({username, password, petName, petColor, onUserRegister}
          />
       </div>
       <div className="petColor">
-         <input type="color" list="colors" onChange={(event)=>setColorField(event.target.value)}/>
+         <input type="color" list="colors" onChange={(event)=>setColorField(event.target.list)}/>
          <datalist id="colors">
-            <option key={1} className={"blue"}> #0000FF</option>
-            <option key={2} className={"red"}> #FF0000</option>
-            <option key={3} className={"yellow"}> #FF6600</option>
-            <option key={4} className={"green"}> #008000</option>
+            <option id={"blue"}> #0000FF</option>
+            <option id={"red"}> #FF0000</option>
+            <option id={"yellow"}> #FF6600</option>
+            <option id={"green"}> #008000</option>
          </datalist>
       </div>
       <div className="button">
          <button type="submit" onClick={verifyAndSubmit}>Submit</button>
-         <button onClick={goBackToHomeClick}>Login
-
-         </button>
+         <button onClick={goBackToHomeClick}>Home</button>
       </div>
       {
          messageInfo && <Message title={messageInfo.title} message={messageInfo.message}/>

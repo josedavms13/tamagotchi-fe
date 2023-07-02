@@ -1,4 +1,5 @@
 export interface ILoginPageTypes {
-   userName:string | null,
-   password:string | null
+   onLoginSubmit: (username: string, password: string) => void
+   userNameInput:string,
+   passwordInput:string
 }

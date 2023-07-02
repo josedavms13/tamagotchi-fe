@@ -5,9 +5,8 @@ import {tHome} from "./home.types.ts";
 import "./home.css";
 
 export function Home() {
-   const [loginPageOn, setLoginPageOn] = useState(true);
-   const [registerPageOn, setRegisterPageOn] = useState(true);
-
+   const [loginPageOn, setLoginPageOn] = useState(false);
+   const [registerPageOn, setRegisterPageOn] = useState(false);
 
    const [currentScreen, setCurrentScreen] = useState<tHome>("Home");
 
@@ -20,7 +19,6 @@ export function Home() {
       case "Register":
          setRegisterPageOn(true);
          break;
-
       }
 
    }, [currentScreen, refresh]);
@@ -38,20 +36,21 @@ export function Home() {
       setCurrentScreen("Register");
    }
 
-
-
    return (
       <div className={ "mainPage" }>
          <button onClick={ onLoginButton } className={ "buttons" }> Login
-            {
-               loginPageOn && <LoginPage userName={ null } password={ null }/>
-            }
+
          </button>
          <button onClick={ onRegisterButton } className={ "buttons" }> Register
-            {
-               registerPageOn && <Register onUserRegister={ onRegisterButton } password={""} petName={""} petColor={"green"} username={""}/>
-            }
+
          </button>
+         {
+            loginPageOn && <LoginPage userName={ null } password={ null }/>
+         }
+
+         {
+            registerPageOn && <Register onUserRegister={ onRegisterButton } password={null} petName={null} petColor={"orange"} username={null}/>
+         }
       </div>
    );
 }
