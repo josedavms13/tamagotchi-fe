@@ -53,8 +53,8 @@ export function LoginPage({onLoginSubmit, userNameInput, passwordInput}: ILoginP
          </div>
          <div className={ "buttons" }>
             <button className={ "submitLogin" }
-               type={ "submit" }
-               onClick={ submitLoginInfo }>
+                    type={ "submit" }
+                    onClick={ submitLoginInfo }>
                submit
             </button>
             <button onClick={ goToHomeClick }>

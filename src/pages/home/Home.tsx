@@ -8,6 +8,7 @@ export function Home() {
    const [loginPageOn, setLoginPageOn] = useState(false);
    const [registerPageOn, setRegisterPageOn] = useState(false);
 
+
    const [currentScreen, setCurrentScreen] = useState<tHome>("Home");
 
    useEffect(() => {
@@ -30,10 +31,16 @@ export function Home() {
 
    function onLoginButton() {
       setCurrentScreen("Login");
+      refresh();
    }
 
    function onRegisterButton() {
       setCurrentScreen("Register");
+      refresh();
+   }
+
+   function loginSubmitSent() {
+      console.log("login sent");
    }
 
    return (
@@ -45,7 +52,7 @@ export function Home() {
 
          </button>
          {
-            loginPageOn && <LoginPage userName={ null } password={ null }/>
+            loginPageOn && <LoginPage onLoginSubmit={loginSubmitSent} />
          }
 
          {
