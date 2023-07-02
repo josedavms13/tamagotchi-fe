@@ -35,7 +35,7 @@ export function Screen() {
    });
 
    useEffect(() => {
-      console.log(funCharacter, "funCharacter", heartCharacter, "heartCharacter", ageCharacter, "ageCharacter", feed, "feed", hungryCharacter, "hungryCharacter", dinosaurCharacter, "dinosaurCharacter", dead, "dead", toName, "toName", toColorSelect, "toSelectColor", isAliveCharacter, "isAlive", happinessModify, "happiness");
+      console.log(funCharacter, "funCharacter", heartCharacter, "heartCharacter", ageCharacter, "ageCharacter", feed(2), "feed", hungryCharacter, "hungryCharacter", dinosaurCharacter, "dinosaurCharacter", dead, "dead", toName("pepe"), "toName", toColorSelect("green"), "toSelectColor", isAliveCharacter, "isAlive", happinessModify(1), "happiness");
    }, [happinessModify, funCharacter, heartCharacter, ageCharacter, feed, hungryCharacter, dinosaurCharacter, dead, toName, toColorSelect, isAliveCharacter ]);
 
    // endregion CHARACTER
@@ -82,6 +82,10 @@ export function Screen() {
    }
 
    // endregion PlayerForm
+
+   //region FEED
+
+   //endregion FEED
 
    return (
       <div className={ "screen" }>

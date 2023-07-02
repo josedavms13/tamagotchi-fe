@@ -1,6 +1,6 @@
-import "./stack.css"
-import iconFood from "../../../../assets/sprites/foodImage.jpg"
-import happyFace from "../../../../assets/sprites/funnyFace.avif"
+import "./stack.css";
+import iconFood from "../../../../assets/sprites/foodImage.jpg";
+import happyFace from "../../../../assets/sprites/funnyFace.avif";
 
 export function Stats() {
    return(

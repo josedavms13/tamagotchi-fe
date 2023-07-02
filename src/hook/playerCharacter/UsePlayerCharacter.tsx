@@ -38,10 +38,10 @@ export function usePlayerCharacter({fun, age, heart, hungry, name, dinosaur, col
 
    function happinessModify(happinessAmount:number) {
       if(happinessAmount<10){
-         setFunCharacter( (prev)=> prev + happinessAmount);}
+         return setFunCharacter( (prev)=> prev + happinessAmount);}
    }
    function feed(feedAmmont:number) {
-      setHungryCharacter(hungryCharacter - feedAmmont);
+      return setHungryCharacter(hungryCharacter - feedAmmont);
    }
 
    function dead() {
@@ -53,7 +53,7 @@ export function usePlayerCharacter({fun, age, heart, hungry, name, dinosaur, col
    }
 
    function toName(name:string) {
-      nameCharacter.current=name;
+      return nameCharacter.current=name;
    }
 
    function toColorSelect(color:string) {
@@ -61,6 +61,7 @@ export function usePlayerCharacter({fun, age, heart, hungry, name, dinosaur, col
          colorCharacter.current=color;
          dinosaurCharacter.current= urlDinosaur + color;
       }
+      return ({colorCharacter, dinosaurCharacter});
 
    }
 
