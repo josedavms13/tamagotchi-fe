@@ -103,7 +103,7 @@ export function Screen() {
          </div>
          <div className={ "infoSection" }>
             <Scenario urlCharacter={dinosaurCharacter} colorCharacterSelect={colorCharacter}/>
-            <Stats/>
+            <Stats hungryStats={hungryCharacter} funStats={funCharacter}/>
 
          </div>
 
