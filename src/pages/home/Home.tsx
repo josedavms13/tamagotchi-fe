@@ -45,6 +45,7 @@ export function Home() {
 
    return (
       <div className={ "mainPage" }>
+
          <button onClick={ onLoginButton } className={ "buttons" }> Login
 
          </button>
@@ -52,12 +53,14 @@ export function Home() {
 
          </button>
          {
-            loginPageOn && <LoginPage onLoginSubmit={loginSubmitSent} />
+            loginPageOn && <LoginPage onLoginSubmit={ loginSubmitSent }/>
+         }
+         {
+            registerPageOn &&
+            <Register onUserRegister={ onRegisterButton } password={ null } petName={ null } petColor={ "orange" }
+               username={ null }/>
          }
 
-         {
-            registerPageOn && <Register onUserRegister={ onRegisterButton } password={null} petName={null} petColor={"orange"} username={null}/>
-         }
       </div>
    );
 }

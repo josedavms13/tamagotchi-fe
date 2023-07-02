@@ -97,11 +97,11 @@ export function Screen() {
    return (
       <div className={ "screen" }>
          <div>
-            <Header petName={ "Pablito" } age={ 2 } onHeaderFeed={ onHeaderFeedClick }
+            <Header petName={ toName } age={ ageCharacter } onHeaderFeed={ onHeaderFeedClick }
                onHeaderPlayerFormClick={ onHeaderPlayerFormClick }/>
          </div>
          <div className={ "infoSection" }>
-            <Scenario/>
+            <Scenario urlCharacter={dinosaurCharacter} />
             <Stats/>
 
          </div>
