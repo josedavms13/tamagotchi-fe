@@ -1,10 +1,10 @@
-import {Header} from "../header/Header.tsx";
-import {Scenario} from "../scenario/Scenario.tsx";
+import {Header} from "../../Components/header/Header.tsx";
+import {Scenario} from "../../Components/scenario/Scenario.tsx";
 import "./screen.css";
-import {Stats} from "../scenario/parts/Stacks/Stats.tsx";
+import {Stats} from "../../Components/scenario/parts/Stacks/Stats.tsx";
 import {useEffect, useState} from "react";
 import {tScreen} from "./screen.types.ts";
-import {PlayerForm} from "../TikTakToe/playerForm/PlayerForm.tsx";
+import {PlayerForm} from "../../Components/TikTakToe/playerForm/PlayerForm.tsx";
 import {usePlayerCharacter} from "../../hook/playerCharacter/UsePlayerCharacter.tsx";
 
 export function Screen() {

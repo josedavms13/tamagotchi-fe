@@ -4,13 +4,12 @@ import gameIcon from "../../assets/sprites/gameIcon.png";
 import foodIcon from "../../assets/sprites/foodImage.jpg";
 import {IHeaderComponent} from "./header.types.ts";
 import {useState} from "react";
-import {Feed} from "../feed/Feed..tsx";
+import {Feed} from "../../pages/feed/Feed..tsx";
 export function Header({petName, age, onHeaderFeed, onHeaderPlayerFormClick}:IHeaderComponent) {
-   const [feedClick, setFeedClick] = useState(false);
+   const [feedClick] = useState(true);
 
-   function onFeedClick() {
-      setFeedClick(true);
-   }
+
+
 
    return(
       <div className={"header"}>
@@ -24,7 +23,7 @@ export function Header({petName, age, onHeaderFeed, onHeaderPlayerFormClick}:IHe
 
             </div>
             <div className={"feed"}>
-               {feedClick && <Feed onFeedDisplay={onFeedClick} hungryStats={50}/>}
+               {feedClick && <Feed onFeedDisplay={onHeaderFeed} hungryStats={50}/>}
                <img src={foodIcon} alt={"food"}/>
             </div>
 

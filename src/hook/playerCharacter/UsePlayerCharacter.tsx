@@ -32,7 +32,7 @@ export function usePlayerCharacter({fun, age, heart, hungry, name, dinosaur, col
 
    useEffect(()=>{
       setInterval(()=>{
-         setFunCharacter( funCharacter + 2);
+         setFunCharacter( funCharacter - 2);
       },70000);
    },[funCharacter]);
 
@@ -45,11 +45,10 @@ export function usePlayerCharacter({fun, age, heart, hungry, name, dinosaur, col
    }
 
    function dead() {
-      if(ageCharacter.current===max_age){
+      if(ageCharacter.current===max_age ||funCharacter===0){
          setHeartCharacter(0);
          setIsAliveCharacter(false);
       }
-
    }
 
    function toName(name:string) {

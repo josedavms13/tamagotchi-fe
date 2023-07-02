@@ -1,11 +1,15 @@
 import {IFeedTypes} from "./feed.types.ts";
 import chees from "../../assets/sprites/food/chees.png";
-import juice from"../../assets/sprites/food/juice.png";
-import chicken from"../../assets/sprites/food/chicken.png";
+import juice from "../../assets/sprites/food/juice.png";
+import chicken from "../../assets/sprites/food/chicken.png";
 import {useState} from "react";
 
 export function Feed({onFeedDisplay, hungryStats}:IFeedTypes) {
    const [hungryDisplay, setHungryDisplay] = useState(hungryStats);
+
+   function f() {
+
+   }
    function chickenClick() {
       setHungryDisplay((prev)=> prev - 5);
    }
