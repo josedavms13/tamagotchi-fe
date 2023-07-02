@@ -1,13 +1,14 @@
 export interface IPlayerCharacterTypes {
    url:string,
-   color:PlayerColor,
+   color:string,
 
 }
 
-export enum PlayerColor {
+/**export enum PlayerColor {
    GREEN,
    BLUE,
    YELLOW,
    RED
 
 }
+ **/

@@ -74,6 +74,7 @@ export function usePlayerCharacter({fun, age, heart, hungry, name, dinosaur, col
       heartCharacter,
       dinosaurCharacter,
       isAliveCharacter,
+      colorCharacter,
       feed,
       happinessModify,
       dead,

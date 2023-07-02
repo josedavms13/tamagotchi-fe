@@ -19,6 +19,7 @@ export function Screen() {
       heartCharacter,
       dinosaurCharacter,
       isAliveCharacter,
+      colorCharacter,
       feed,
       happinessModify,
       dead,
@@ -101,7 +102,7 @@ export function Screen() {
                onHeaderPlayerFormClick={ onHeaderPlayerFormClick }/>
          </div>
          <div className={ "infoSection" }>
-            <Scenario urlCharacter={dinosaurCharacter} />
+            <Scenario urlCharacter={dinosaurCharacter} colorCharacterSelect={colorCharacter}/>
             <Stats/>
 
          </div>
