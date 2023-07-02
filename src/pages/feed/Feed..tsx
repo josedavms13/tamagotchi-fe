@@ -5,12 +5,10 @@ import chicken from "../../assets/sprites/food/chicken.png";
 import {useState} from "react";
 import "./feed.styles.css";
 
-export function Feed({onFeedDisplay, hungryStats}: IFeedTypes) {
+export function Feed({hungryStats}: IFeedTypes) {
    const [hungryDisplay, setHungryDisplay] = useState(hungryStats);
 
-   function f() {
 
-   }
 
    function chickenClick() {
       if(hungryDisplay > 4){

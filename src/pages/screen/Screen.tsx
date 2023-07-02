@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {tScreen} from "./screen.types.ts";
 import {PlayerForm} from "../../Components/TikTakToe/playerForm/PlayerForm.tsx";
 import {usePlayerCharacter} from "../../hook/playerCharacter/UsePlayerCharacter.tsx";
+import {Feed} from "../feed/Feed..tsx";
 
 export function Screen() {
 
@@ -43,10 +44,13 @@ export function Screen() {
 
    const [currentScreen, setCurrentScreen] = useState<tScreen>("game");
    const [showPlayForm, setShowPlayForm] = useState(false);
+   const [hungryStats, setHungryStats] = useState(0);
+   const [showFeedForm, setShowFeedForm] = useState(false);
 
 
    function refresh() {
       setShowPlayForm(false);
+      setShowFeedForm(false);
    }
 
    useEffect(() => {
@@ -67,6 +71,7 @@ export function Screen() {
 
    function onHeaderFeedClick() {
       setCurrentScreen("feed");
+      setShowFeedForm(true);
       console.log("gif food");
    }
 
@@ -84,7 +89,9 @@ export function Screen() {
    // endregion PlayerForm
 
    //region FEED
-
+   function onHeaderFeed() {
+      console.log("feed click");
+   }
    //endregion FEED
 
    return (
@@ -102,6 +109,10 @@ export function Screen() {
          {
             showPlayForm &&
             <PlayerForm onMultiPlayerClick={ onHeaderMultiPlayer } onSinglePlayerClick={ onHeaderSinglePlayer }/>
+         }
+         {
+            showFeedForm &&
+            <Feed onFeedDisplay={onHeaderFeed} hungryStats={hungryStats}/>
          }
       </div>
    );
