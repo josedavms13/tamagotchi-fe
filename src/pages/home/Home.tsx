@@ -6,7 +6,8 @@ import "./home.css";
 
 export function Home() {
    const [loginPageOn, setLoginPageOn] = useState(true);
-   const [registerPageOn, setRegisterPageOn] = useState(false);
+   const [registerPageOn, setRegisterPageOn] = useState(true);
+
 
    const [currentScreen, setCurrentScreen] = useState<tHome>("Home");
 
@@ -15,13 +16,11 @@ export function Home() {
       switch (currentScreen) {
       case "Login":
          setLoginPageOn(true);
-         setCurrentScreen("Login")
          break;
       case "Register":
          setRegisterPageOn(true);
-         setCurrentScreen("Register")
-
          break;
+
       }
 
    }, [currentScreen, refresh]);
@@ -32,14 +31,14 @@ export function Home() {
    }
 
    function onLoginButton() {
-      setLoginPageOn(true);
-      setRegisterPageOn(false);
+      setCurrentScreen("Login");
    }
 
    function onRegisterButton() {
-      setRegisterPageOn(true);
-      setLoginPageOn(false);
+      setCurrentScreen("Register");
    }
+
+
 
    return (
       <div className={ "mainPage" }>
@@ -50,7 +49,7 @@ export function Home() {
          </button>
          <button onClick={ onRegisterButton } className={ "buttons" }> Register
             {
-               registerPageOn && <Register onUserRegister={onRegisterButton} onBackToHome={goBackHome}/>
+               registerPageOn && <Register onUserRegister={ onRegisterButton } password={""} petName={""} petColor={"green"} username={""}/>
             }
          </button>
       </div>

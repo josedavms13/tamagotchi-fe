@@ -1,11 +1,12 @@
-import {Header} from "../header/Header.tsx";
-import {Scenario} from "../scenario/Scenario.tsx";
+import {Header} from "../../Components/header/Header.tsx";
+import {Scenario} from "../../Components/scenario/Scenario.tsx";
 import "./screen.css";
-import {Stats} from "../scenario/parts/Stacks/Stats.tsx";
+import {Stats} from "../../Components/scenario/parts/Stacks/Stats.tsx";
 import {useEffect, useState} from "react";
 import {tScreen} from "./screen.types.ts";
-import {PlayerForm} from "../TikTakToe/playerForm/PlayerForm.tsx";
+import {PlayerForm} from "../../Components/TikTakToe/playerForm/PlayerForm.tsx";
 import {usePlayerCharacter} from "../../hook/playerCharacter/UsePlayerCharacter.tsx";
+import {Feed} from "../feed/Feed..tsx";
 
 export function Screen() {
 
@@ -35,7 +36,7 @@ export function Screen() {
    });
 
    useEffect(() => {
-      console.log(funCharacter, "funCharacter", heartCharacter, "heartCharacter", ageCharacter, "ageCharacter", feed, "feed", hungryCharacter, "hungryCharacter", dinosaurCharacter, "dinosaurCharacter", dead, "dead", toName, "toName", toColorSelect, "toSelectColor", isAliveCharacter, "isAlive", happinessModify, "happiness");
+      setHungryStats(hungryCharacter);
    }, [happinessModify, funCharacter, heartCharacter, ageCharacter, feed, hungryCharacter, dinosaurCharacter, dead, toName, toColorSelect, isAliveCharacter ]);
 
    // endregion CHARACTER
@@ -43,10 +44,13 @@ export function Screen() {
 
    const [currentScreen, setCurrentScreen] = useState<tScreen>("game");
    const [showPlayForm, setShowPlayForm] = useState(false);
+   const [hungryStats, setHungryStats] = useState(0);
+   const [showFeedForm, setShowFeedForm] = useState(false);
 
 
    function refresh() {
       setShowPlayForm(false);
+      setShowFeedForm(false);
    }
 
    useEffect(() => {
@@ -67,6 +71,7 @@ export function Screen() {
 
    function onHeaderFeedClick() {
       setCurrentScreen("feed");
+      setShowFeedForm(true);
       console.log("gif food");
    }
 
@@ -83,6 +88,12 @@ export function Screen() {
 
    // endregion PlayerForm
 
+   //region FEED
+   function onHeaderFeed() {
+      console.log("feed click");
+   }
+   //endregion FEED
+
    return (
       <div className={ "screen" }>
          <div>
@@ -98,6 +109,10 @@ export function Screen() {
          {
             showPlayForm &&
             <PlayerForm onMultiPlayerClick={ onHeaderMultiPlayer } onSinglePlayerClick={ onHeaderSinglePlayer }/>
+         }
+         {
+            showFeedForm &&
+            <Feed onFeedDisplay={onHeaderFeed} hungryStats={hungryStats}/>
          }
       </div>
    );
