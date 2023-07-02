@@ -36,7 +36,7 @@ export function Screen() {
    });
 
    useEffect(() => {
-      console.log(funCharacter, "funCharacter", heartCharacter, "heartCharacter", ageCharacter, "ageCharacter", feed(2), "feed", hungryCharacter, "hungryCharacter", dinosaurCharacter, "dinosaurCharacter", dead, "dead", toName("pepe"), "toName", toColorSelect("green"), "toSelectColor", isAliveCharacter, "isAlive", happinessModify(1), "happiness");
+      setHungryStats(hungryCharacter);
    }, [happinessModify, funCharacter, heartCharacter, ageCharacter, feed, hungryCharacter, dinosaurCharacter, dead, toName, toColorSelect, isAliveCharacter ]);
 
    // endregion CHARACTER

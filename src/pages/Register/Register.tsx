@@ -1,13 +1,15 @@
-import {IMessage, IRegisterTypes} from "./resgisterTypes.ts";
+import {IMessage, IResgisterTypes} from "./resgisterTypes.ts";
 import "./resgisterStyles.css";
 import {useState} from "react";
+import {Home} from "../home/Home.tsx";
 
-export function Register({username, password, petName, perColor}: IResgisterTypes) {
+export function Register({username, password, petName, petColor, onUserRegister}: IResgisterTypes) {
 
-   const [userNameField, setUserNameField] = useState("");
-   const [passwordField, setPasswordField] = useState("");
-   const [petNameField, setPetNameField] = useState("");
-   const [colorField, setColorField] = useState("");
+   const [userNameField, setUserNameField] = useState(username);
+   const [passwordField, setPasswordField] = useState(password);
+   const [petNameField, setPetNameField] = useState(petName);
+   const [colorField, setColorField] = useState(petColor);
+   const [goToHome, setGoToHome] = useState(false);
 
 
    const [messageInfo, setMessageInfo] = useState<null | IMessage>(null);
@@ -36,7 +38,13 @@ export function Register({username, password, petName, perColor}: IResgisterType
          }));
          return;
       }
-
+      if (!colorField){
+         showMessage(({
+            title: "Color pet must be provided",
+            message: "Pet color is empty"
+         }));
+         return;
+      }
 
       onUserRegister(userNameField, passwordField, colorField, petNameField );
    }
@@ -48,52 +56,56 @@ export function Register({username, password, petName, perColor}: IResgisterType
       }, 2000);
    }
 
-   return (
-      <div className="register">
-         <div className="infoSpace">
-            <label form="userName">UserName</label>
-            <input
-               type="text"
-               id={ "userName" }
-               className={ "userName" }
-               onChange={ (event) => setUserNameField(event.target.value) }
-            />
-         </div>
-         <div className="infoSpace">
-            <label form="password">Password</label>
-            <input type="password"
-               className={ "password" }
-               onChange={ (event) => setPasswordField(event.target.value) }
-            />
-         </div>
-         <div className="infoSpace">
-            <label form="petName">PetName</label>
-            <input type="text"
-               className={ "petName" }
-               onChange={ (event) => setPetNameField(event.target.value) }
-            />
-         </div>
-         <div className="petColor">
-            <input type="color" list="colors" onChange={(event)=>setColorField(event.target.value)}/>
-            <datalist id="colors">
-               <option> #0000FF</option>
-               <option> #FF0000</option>
-               <option> #FF6600</option>
-               <option> #008000</option>
-            </datalist>
-         </div>
-         <div className="button">
-            <button type="submit" onClick={verifyAndSubmit}>Submit</button>
-            <button onClick={onBackToHome}>Login
-
-            </button>
-         </div>
-         {
-            messageInfo && <Message title={messageInfo.title} message={messageInfo.message}/>
-         }
+   function goBackToHomeClick() {
+      setGoToHome(true);
+   }
+   return <div className="register">
+      <div className="infoSpace">
+         <label form="userName">UserName</label>
+         <input
+            type="text"
+            id={ "userName" }
+            className={ "userName" }
+            onChange={ (event) => setUserNameField(event.target.value) }
+         />
       </div>
+      <div className="infoSpace">
+         <label form="password">Password</label>
+         <input type="password"
+            className={ "password" }
+            onChange={ (event) => setPasswordField(event.target.value) }
+         />
+      </div>
+      <div className="infoSpace">
+         <label form="petName">PetName</label>
+         <input type="text"
+            className={ "petName" }
+            onChange={ (event) => setPetNameField(event.target.value) }
+         />
+      </div>
+      <div className="petColor">
+         <input type="color" list="colors" onChange={(event)=>setColorField(event.target.value)}/>
+         <datalist id="colors">
+            <option key={1} className={"blue"}> #0000FF</option>
+            <option key={2} className={"red"}> #FF0000</option>
+            <option key={3} className={"yellow"}> #FF6600</option>
+            <option key={4} className={"green"}> #008000</option>
+         </datalist>
+      </div>
+      <div className="button">
+         <button type="submit" onClick={verifyAndSubmit}>Submit</button>
+         <button onClick={goBackToHomeClick}>Login
 
-   );
+         </button>
+      </div>
+      {
+         messageInfo && <Message title={messageInfo.title} message={messageInfo.message}/>
+      }
+
+      {
+         goToHome && <Home/>
+      }
+   </div>;
 }
 
 function Message({title, message}: IMessage) {
