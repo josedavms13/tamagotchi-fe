@@ -1,12 +1,12 @@
 export  type tScreen = "playForm" | "feed" | "game";
 
 export interface IScreen {
-   fun:number,
-   age:number,
-   heart:number,
-   hungry:number,
-   name:string,
-   dinosaur:string,
-   color:string,
-   isAlive:boolean
+   petFun:number,
+   petAge:number,
+   petHeart:number,
+   petHungry:number,
+   petName:string,
+   urlDinosaur:string,
+   petColor:string,
+   petIsAlive:boolean
 }

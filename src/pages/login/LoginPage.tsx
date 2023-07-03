@@ -2,14 +2,27 @@ import {ILoginPageTypes} from "./loginPageTypes.ts";
 import "./loginPageStyles.css";
 import {useState} from "react";
 import {Home} from "../home/Home.tsx";
+import {Screen} from "../screen/Screen.tsx";
 
-export function LoginPage({onLoginSubmit, userNameInput, passwordInput}: ILoginPageTypes) {
+export function LoginPage({onLoginSubmit, userNameInput, passwordInput, petAgeCharacter, petFunCharacter, petHeartCharacter, petIsALive, petHungryCharacter, petNameCharacter, petColorCharacter, petUrlImage}: ILoginPageTypes) {
 
    const [userNameField] = useState(userNameInput);
    const [passwordField] = useState(passwordInput);
    const [cancelLoginField, setCancelLogin] = useState(false);
+   const [loginPetAge, setLoginPetAge]= useState(petAgeCharacter);
+   const [loginPetFun, setLoginPetFun]= useState(petFunCharacter);
+   const [loginPetUrl, setLoginPetUrl]= useState(petUrlImage);
+   const [loginPetHungry, setLoginPetHungry]= useState(petHungryCharacter);
+   const [loginPetColor, setLoginPetColor]= useState(petColorCharacter);
+   const [loginPetHeart, setLoginPetHeart]= useState(petHeartCharacter);
+   const [loginPetName, setLoginPetName]= useState(petNameCharacter);
+   const [loginPetIsALive, setLoginPetIsALive] = useState(petIsALive);
 
    const [messageInfo, setMessageInfo] = useState<null | IMessage>(null);
+
+   function petAgeToRecive() {
+         setLoginPetAge()
+   }
 
    function submitLoginInfo() {
       if (!userNameField || userNameField.length < 1) {
@@ -27,7 +40,10 @@ export function LoginPage({onLoginSubmit, userNameInput, passwordInput}: ILoginP
          return;
       }
       onLoginSubmit(userNameField, passwordField);
+      setOnSumbitComplete(true);
    }
+
+   const [onSubmitComplete, setOnSumbitComplete] = useState(false);
 
    function showMessage(message: IMessage) {
       setMessageInfo(message);
@@ -56,6 +72,12 @@ export function LoginPage({onLoginSubmit, userNameInput, passwordInput}: ILoginP
                     type={ "submit" }
                     onClick={ submitLoginInfo }>
                submit
+               {
+                  onSubmitComplete &&
+                  <Screen petFun={loginPetFun} petAge={ loginPetAge} petHeart={loginPetHeart } petHungry={loginPetHungry } petName={loginPetName } urlDinosaur={loginPetUrl } petColor={ loginPetColor}
+                          petIsAlive={loginPetIsALive }
+                  /> }
+
             </button>
             <button onClick={ goToHomeClick }>
                Home
@@ -72,11 +94,15 @@ export function LoginPage({onLoginSubmit, userNameInput, passwordInput}: ILoginP
 
 interface IMessage {
    title: string,
-   message: string
+   message;
+   :
+      string;
 }
 
 
-function Message({title, message}: IMessage) {
+function Message({
+   title, message;
+}: IMessage) {
    return (
       <div>
          <h6>{ title }</h6>

@@ -3,12 +3,12 @@ import {Scenario} from "../../Components/scenario/Scenario.tsx";
 import "./screen.css";
 import {Stats} from "../../Components/scenario/parts/Stacks/Stats.tsx";
 import {useEffect, useState} from "react";
-import {tScreen} from "./screen.types.ts";
+import {IScreen, tScreen} from "./screen.types.ts";
 import {PlayerForm} from "../../Components/TikTakToe/playerForm/PlayerForm.tsx";
 import {usePlayerCharacter} from "../../hook/playerCharacter/UsePlayerCharacter.tsx";
 import {Feed} from "../feed/Feed..tsx";
 
-export function Screen() {
+export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry, petColor, urlDinosaur}:IScreen) {
 
 
    // region CHARACTER
@@ -26,14 +26,14 @@ export function Screen() {
       toName,
       toColorSelect,
    } = usePlayerCharacter({
-      isAlive: true,
-      fun: 100,
-      age: 0,
-      heart: 100,
-      hungry: 0,
-      name: "pepe",
-      dinosaur: "",
-      color: "green"
+      isAlive: petIsAlive,
+      fun: petFun,
+      age: petAge,
+      heart: petHeart,
+      hungry: petHungry,
+      name: petName,
+      dinosaur: urlDinosaur,
+      color: petColor
    });
 
    useEffect(() => {
@@ -45,7 +45,7 @@ export function Screen() {
 
    const [currentScreen, setCurrentScreen] = useState<tScreen>("game");
    const [showPlayForm, setShowPlayForm] = useState(false);
-   const [hungryStats, setHungryStats] = useState(0);
+   const [hungryStats, setHungryStats] = useState(hungryCharacter);
    const [showFeedForm, setShowFeedForm] = useState(false);
 
 
