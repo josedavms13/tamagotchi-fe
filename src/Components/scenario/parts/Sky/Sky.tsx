@@ -36,9 +36,7 @@ export function Sky() {
 
    function getRandomIndex() {
       const maxIndex = cloudImagesArray.length;
-
       return Math.floor(Math.random() * maxIndex);
-
    }
 
    useEffect(() => {
@@ -64,10 +62,8 @@ export function Sky() {
    }
 
    function deleteCloud(cloudId: number) {
-      console.log(`Deleting ${ cloudId }`);
       setCloudArray((prev) => {
          const arrayCopy = [...prev];
-         console.log(arrayCopy, "arrayCopy");
          return arrayCopy.filter((element)=>element.id!==cloudId);
 
       });
@@ -79,11 +75,11 @@ export function Sky() {
 
    return (
       <div className="sky">
-         Sky
          { cloudArray &&
             cloudArray.length > 0 &&
-            cloudArray.map((cloud) => (
+            cloudArray.map((cloud, index) => (
                <Clouds
+                  key={index}
                   url={ cloud.url }
                   id={ cloud.id }
                   cloudHeight={ cloud.cloudHeight }

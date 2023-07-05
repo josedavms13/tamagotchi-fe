@@ -1,11 +1,11 @@
-import "./stack.css";
+import "./stats.css";
 import iconFood from "../../../../assets/sprites/foodImage.jpg";
 import happyFace from "../../../../assets/sprites/funnyFace.avif";
-import {IStacksTypes} from "./stacks.types.ts";
+import {IStatsComponent} from "./stats.types.ts";
 
-export function Stats({hungryStats, funStats}:IStacksTypes) {
+export function Stats({hungryStats, funStats}:IStatsComponent) {
    return(
-      <div className={"stacks"}>
+      <div className={"stats"}>
          <div className={"hungry"}>
             <img src={iconFood} alt={"food"}/>
             hungry

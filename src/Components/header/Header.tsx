@@ -1,9 +1,9 @@
-
 import "./header.css";
 import gameIcon from "../../assets/sprites/gameIcon.png";
 import foodIcon from "../../assets/sprites/foodImage.jpg";
 import {IHeaderComponent} from "./header.types.ts";
-export function Header({petName, age, onHeaderFeed, onHeaderPlayerFormClick}:IHeaderComponent) {
+
+export function Header({petName, age, onHeaderFeed, onHeaderPlayerFormClick, onPlayTogetherClick}:IHeaderComponent) {
 
    return(
       <div className={"header"}>
@@ -12,16 +12,13 @@ export function Header({petName, age, onHeaderFeed, onHeaderPlayerFormClick}:IHe
             <span>AGE:{age}</span>
          </div>
          <div className={"actionsBar"}>
-            <div className={"game"} onClick={onHeaderPlayerFormClick} >
+            <div className={"game action-card"} onClick={onHeaderPlayerFormClick} >
                <img src={gameIcon} alt={"game"}/>
-
             </div>
-            <div className={"feed"} onClick={onHeaderFeed}>
+            <div className={"feed action-card"} onClick={onHeaderFeed}>
                <img src={foodIcon} alt={"food"}/>
             </div>
-
          </div>
-
       </div>
    );
 }

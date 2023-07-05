@@ -1,7 +1,7 @@
-export interface IPlayerCharacterTypes {
-   url:string,
-   color:string,
+import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts";
 
+export interface IPlayerCharacterTypes {
+   characterColor: PlayerColor
 }
 
 /**export enum PlayerColor {

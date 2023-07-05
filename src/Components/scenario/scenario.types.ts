@@ -1,4 +1,5 @@
+import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts";
+
 export interface IScenarioTypes {
-   urlCharacter: string,
-   colorCharacterSelect: string
+   characterColor: PlayerColor
 }

@@ -1,1 +1,4 @@
-export type tHome = "Login" | "Register" | "Home"
+export type tHome =
+   "Login" |
+   "Register" |
+   "Home"

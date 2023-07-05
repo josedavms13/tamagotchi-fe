@@ -31,17 +31,18 @@ export function Home() {
 
    function onLoginButton() {
       setCurrentScreen("Login");
-      refresh();
    }
 
    function onRegisterButton() {
       setCurrentScreen("Register");
-      refresh();
    }
 
    function loginSubmitSent() {
       console.log("login sent");
    }
+
+
+
 
    return (
       <div className={ "mainPage" }>
@@ -60,7 +61,6 @@ export function Home() {
             <Register onUserRegister={ onRegisterButton } password={ null } petName={ null } petColor={ "orange" }
                username={ null }/>
          }
-
       </div>
    );
 }

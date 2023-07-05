@@ -3,7 +3,7 @@ import "./scenario.css";
 import {PlayerCharacter} from "../playerCharacter/PlayerCharacter.tsx";
 import {IScenarioTypes} from "./scenario.types.ts";
 
-export function Scenario({urlCharacter, colorCharacterSelect}:IScenarioTypes) {
+export function Scenario({characterColor}:IScenarioTypes) {
 
    return (
       <div className={ "scenario" }>
@@ -12,9 +12,8 @@ export function Scenario({urlCharacter, colorCharacterSelect}:IScenarioTypes) {
             <Sky/>
          </div>
          <div className={"playerCharacter"}>
-            <PlayerCharacter url={urlCharacter} color={colorCharacterSelect}/>
+            <PlayerCharacter characterColor={characterColor}/>
          </div>
-
       </div>
    );
 

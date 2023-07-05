@@ -11,16 +11,15 @@ export function Clouds({id, cloudHeight, cloudSize, onCloudDelete, url}: ICloudC
 
    useEffect(() => {
       setInterval(() => {
-         setPosition((prev) => prev + 0.5);
-      }, 100);
+         setPosition((prev) => prev + 0.2);
+      }, 50);
    }, []);
 
    useEffect(() => {
-      console.log(position);
       if (position > 60) {
          onCloudDelete(id);
       }
-   }, [position]);
+   }, [position, onCloudDelete, id]);
 
    return (
       <div className="cloud" style={ {

@@ -1,5 +1,5 @@
-
-import {Home} from "./pages/home/Home.tsx";
+import {Screen} from "./pages/screen/Screen.tsx";
+import {PlayerColor} from "./hook/playerCharacter/usePlayerCharacterTypes.ts";
 
 function App() {
 
@@ -7,7 +7,14 @@ function App() {
 
    return (
       <>
-         <Home/>
+         <Screen
+            petFun={100}
+            petAge={5}
+            petHeart={100}
+            petHungry={0}
+            petName={"pablo"}
+            petColor={PlayerColor.RED}
+            petIsAlive={true} />
       </>
    );
 }

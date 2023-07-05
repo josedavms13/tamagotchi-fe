@@ -4,24 +4,36 @@ import {useState} from "react";
 import {Home} from "../home/Home.tsx";
 import {Screen} from "../screen/Screen.tsx";
 
-export function LoginPage({onLoginSubmit, userNameInput, passwordInput, petAgeCharacter, petFunCharacter, petHeartCharacter, petIsALive, petHungryCharacter, petNameCharacter, petColorCharacter, petUrlImage}: ILoginPageTypes) {
+export function LoginPage({
+   onLoginSubmit,
+   userNameInput,
+   passwordInput,
+   petAgeCharacter,
+   petFunCharacter,
+   petHeartCharacter,
+   petIsALive,
+   petHungryCharacter,
+   petNameCharacter,
+   petColorCharacter,
+   petUrlImage
+}: ILoginPageTypes) {
 
    const [userNameField] = useState(userNameInput);
    const [passwordField] = useState(passwordInput);
    const [cancelLoginField, setCancelLogin] = useState(false);
-   const [loginPetAge, setLoginPetAge]= useState(petAgeCharacter);
-   const [loginPetFun, setLoginPetFun]= useState(petFunCharacter);
-   const [loginPetUrl, setLoginPetUrl]= useState(petUrlImage);
-   const [loginPetHungry, setLoginPetHungry]= useState(petHungryCharacter);
-   const [loginPetColor, setLoginPetColor]= useState(petColorCharacter);
-   const [loginPetHeart, setLoginPetHeart]= useState(petHeartCharacter);
-   const [loginPetName, setLoginPetName]= useState(petNameCharacter);
+   const [loginPetAge, setLoginPetAge] = useState(petAgeCharacter);
+   const [loginPetFun, setLoginPetFun] = useState(petFunCharacter);
+   const [loginPetUrl, setLoginPetUrl] = useState(petUrlImage);
+   const [loginPetHungry, setLoginPetHungry] = useState(petHungryCharacter);
+   const [loginPetColor, setLoginPetColor] = useState(petColorCharacter);
+   const [loginPetHeart, setLoginPetHeart] = useState(petHeartCharacter);
+   const [loginPetName, setLoginPetName] = useState(petNameCharacter);
    const [loginPetIsALive, setLoginPetIsALive] = useState(petIsALive);
 
    const [messageInfo, setMessageInfo] = useState<null | IMessage>(null);
 
    function petAgeToRecive() {
-         setLoginPetAge()
+      setLoginPetAge();
    }
 
    function submitLoginInfo() {
@@ -69,13 +81,20 @@ export function LoginPage({onLoginSubmit, userNameInput, passwordInput, petAgeCh
          </div>
          <div className={ "buttons" }>
             <button className={ "submitLogin" }
-                    type={ "submit" }
-                    onClick={ submitLoginInfo }>
+               type={ "submit" }
+               onClick={ submitLoginInfo }>
                submit
                {
                   onSubmitComplete &&
-                  <Screen petFun={loginPetFun} petAge={ loginPetAge} petHeart={loginPetHeart } petHungry={loginPetHungry } petName={loginPetName } urlDinosaur={loginPetUrl } petColor={ loginPetColor}
-                          petIsAlive={loginPetIsALive }
+                  <Screen
+                     petFun={ loginPetFun }
+                     petAge={ loginPetAge }
+                     petHeart={ loginPetHeart }
+                     petHungry={ loginPetHungry }
+                     petName={ loginPetName }
+                     urlDinosaur={ loginPetUrl }
+                     petColor={ loginPetColor }
+                     petIsAlive={ loginPetIsALive }
                   /> }
 
             </button>
@@ -86,6 +105,10 @@ export function LoginPage({onLoginSubmit, userNameInput, passwordInput, petAgeCh
             {
                cancelLoginField && <Home/>
             }
+            {
+               messageInfo &&
+               <Message message={ messageInfo.message } title={ messageInfo.title }/>
+            }
          </div>
 
       </div>
@@ -94,14 +117,12 @@ export function LoginPage({onLoginSubmit, userNameInput, passwordInput, petAgeCh
 
 interface IMessage {
    title: string,
-   message;
-   :
-      string;
+   message: string;
 }
 
 
 function Message({
-   title, message;
+   title, message,
 }: IMessage) {
    return (
       <div>

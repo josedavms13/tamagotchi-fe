@@ -1,4 +1,10 @@
-export  type tScreen = "playForm" | "feed" | "game";
+import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts";
+
+export  type tScreen = "playForm" |
+   "feed" |
+   "game" |
+   "playTogether"
+;
 
 export interface IScreen {
    petFun:number,
@@ -6,7 +12,6 @@ export interface IScreen {
    petHeart:number,
    petHungry:number,
    petName:string,
-   urlDinosaur:string,
-   petColor:string,
+   petColor: PlayerColor,
    petIsAlive:boolean
 }
