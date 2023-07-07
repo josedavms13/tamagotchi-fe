@@ -6,15 +6,15 @@ import {IStatsComponent} from "./stats.types.ts";
 export function Stats({hungryStats, funStats}:IStatsComponent) {
    return(
       <div className={"stats"}>
-         <div className={"hungry"}>
+         <div className={"statsIcon"}>
             <img src={iconFood} alt={"food"}/>
-            hungry
-            <span>{hungryStats}</span>
+            <span className={"statName"}>HUNGRY</span>
+            <span className={"statsNumber"}>{hungryStats}</span>
          </div>
-         <div className={"funLevel"}>
+         <div className={"statsIcon"}>
             <img src={happyFace} alt={"happyFace"}/>
-            fun Level
-            <span>{funStats}</span>
+            <span className={"statName"}>FUN LEVEL</span>
+            <span className={"statsNumber"}>{funStats}</span>
          </div>
       </div>
    );

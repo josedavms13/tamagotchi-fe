@@ -3,8 +3,7 @@
 .screen{
     background-color: cadetblue;
     height: 100vh;
-    margin: 10px;
-    padding: 10px;
+    padding: 25px;
     justify-content: center;
     align-items: center;
     font-family: 'Belanosima', sans-serif;

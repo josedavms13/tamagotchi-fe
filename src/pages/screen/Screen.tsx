@@ -101,7 +101,7 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
 
    return (
       <div className={ "screen" }>
-         <div>
+         <div className={"header"}>
             <Header
                petName={ petName }
                age={ ageCharacter }
