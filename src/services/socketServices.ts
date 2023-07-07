@@ -1,8 +1,8 @@
 import axios from "axios";
 import {ISocketCreateResponse} from "./socketServices.types.ts";
+import {getBaseUrl} from "./baseServices.ts";
 
-const baseUrl = "http://localhost:4545/api";
 
 export async function createSocketServer() {
-   return axios.get<ISocketCreateResponse>(baseUrl + "/session/create-session");
+   return axios.get<ISocketCreateResponse>(getBaseUrl() + "/session/create-session");
 }

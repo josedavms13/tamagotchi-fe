@@ -15,3 +15,18 @@
     padding: 10px;
     cursor: pointer;
 }
+
+.step-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: white solid 2px;
+    margin: 10px;
+}
+
+.step-box input {
+    padding: 10px;
+}
