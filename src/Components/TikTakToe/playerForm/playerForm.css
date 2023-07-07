@@ -1,0 +1,33 @@
+
+.selectContainer{
+    border: black solid 1px;
+    height: 60vh;
+    width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-evenly;
+    margin: 10%;
+    background-color: darkgoldenrod;
+    flex-direction: column;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.singlePlayer{
+    border-radius: 20px;
+    border: crimson double 3px;
+    padding: 20px;
+}
+
+.multiPlayer{
+    border-radius: 20px;
+    border: crimson double 3px;
+    padding: 20px;
+}
+
+.selectContainer button {
+    cursor: pointer;
+}

@@ -1,0 +1,29 @@
+.cloud {
+    position: absolute;
+    width: 200px;
+    height: 80px;
+
+}
+
+img {
+    object-fit: contain;
+    width: 100%;
+}
+
+@keyframes cloudEntering {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes cloudEnding {
+    from {
+        opacity: 100%;
+    }
+    to {
+        opacity: 0;
+    }
+}

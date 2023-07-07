@@ -1,0 +1,28 @@
+.player-character {
+    width: 10rem;
+    position: absolute;
+    bottom: 13%;
+    right: 50%;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-play-state: initial;
+    cursor: pointer;
+
+}
+
+.player-character img {
+    width: 100px;
+
+}
+
+@keyframes dinoJump {
+    0% {
+        bottom: 13%;
+    }
+    50% {
+        bottom: 70%;
+    }
+    100% {
+        bottom: 13%;
+    }
+}

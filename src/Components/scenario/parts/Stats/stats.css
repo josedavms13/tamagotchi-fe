@@ -1,0 +1,32 @@
+.stats{
+    border: black 4px double;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: 10%;
+    align-items: center;
+    justify-content: space-evenly;
+    background: rgb(122,215,0);
+    background: linear-gradient(0deg, rgba(122,215,0,1) 40%, rgba(59,171,253,1) 53%, rgba(59,171,253,1) 100%);
+}
+
+.statsIcon{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: center;
+    text-align: center;
+    height: 40%;
+    width: 80%;
+}
+.statName{
+    padding: 10px;
+}
+
+.statsNumber{
+    background-color: whitesmoke;
+    border: black 2px solid;
+    border-radius: 25px;
+    height: 35px;
+
+}
