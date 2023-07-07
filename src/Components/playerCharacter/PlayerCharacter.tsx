@@ -27,8 +27,24 @@ export function PlayerCharacter({characterColor}: IPlayerCharacterTypes) {
       }
    }, [characterColor]);
 
+   const [animationStyles, setAnimationStyles] = useState<any>({});
+
+   function jump() {
+      setAnimationStyles({"animationName": "dinoJump", "animationIterationCount": 1,
+         "animationPlayState": "initial"});
+   }
+
+   function animationEnd() {
+      setAnimationStyles({});
+   }
+
+
    return (
-      <div className={ "player-character" }>
+      <div className={ "player-character" }
+         style={animationStyles}
+         onClick={jump}
+         onAnimationEnd={animationEnd}
+      >
          { characterUrl && <img src = { characterUrl } alt={ "dinosaur" }/> }
       </div>
    );
