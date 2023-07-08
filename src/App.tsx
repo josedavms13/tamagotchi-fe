@@ -1,3 +1,4 @@
+
 import {Screen} from "./pages/screen/Screen.tsx";
 import {PlayerColor} from "./hook/playerCharacter/usePlayerCharacterTypes.ts";
 import {useEffect, useState} from "react";
@@ -6,9 +7,11 @@ import {Home} from "./pages/home/Home.tsx";
 import {useRegister} from "./hook/Register/UseRegister.tsx";
 import {useCharacterStorage} from "./hook/CharacterStorage/UseCharacterStorage.tsx";
 
+
 function App() {
 
    const {isAuth, doLogin} = useLogin();
+
 
    const {doRegister} = useRegister();
 

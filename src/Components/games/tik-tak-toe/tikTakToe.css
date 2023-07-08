@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.general-container {
+    --general-size: 400px;
+    width: var(--general-size);
+    height: var(--general-size);
+    margin: 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    width: 100%;
+    height: calc(100% / 3);
+
+    display: flex;
+    flex-direction: row;
+}
