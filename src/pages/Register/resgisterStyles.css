@@ -1,4 +1,7 @@
 .register{
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -7,6 +10,7 @@
     justify-content: space-evenly;
     background-color: cornflowerblue;
 
+    text-align: center;
 }
 
 .infoSpace{
@@ -18,4 +22,24 @@
     height: 70px;
     width: 30%;
     justify-content: space-evenly;
+}
+
+.dino-color {
+    width: 80px;
+    cursor: pointer;
+}
+
+.dino-color:hover {
+    width: 90px;
+}
+
+.pet-color-picker-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.register input {
+    text-align: center;
+    margin: 10px;
 }

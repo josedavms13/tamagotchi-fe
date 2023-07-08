@@ -1,10 +1,11 @@
 import {LoginPage} from "../login/LoginPage.tsx";
 import {Register} from "../Register/Register.tsx";
 import {useEffect, useState} from "react";
-import {tHome} from "./home.types.ts";
+import {IHome, tHome} from "./home.types.ts";
 import "./home.css";
+import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts";
 
-export function Home() {
+export function Home({onLoginSubmit, onRegisterButtonClick}: IHome) {
    const [loginPageOn, setLoginPageOn] = useState(false);
    const [registerPageOn, setRegisterPageOn] = useState(false);
 
@@ -22,26 +23,40 @@ export function Home() {
          break;
       }
 
-   }, [currentScreen, refresh]);
+   }, [currentScreen]);
 
    function refresh() {
       setLoginPageOn(false);
       setRegisterPageOn(false);
    }
 
+   //region Login
    function onLoginButton() {
       setCurrentScreen("Login");
    }
 
+   function cancelLogin() {
+      setCurrentScreen("Home");
+   }
+
+   //endregion Login
+
+   //region Register
    function onRegisterButton() {
       setCurrentScreen("Register");
    }
 
-   function loginSubmitSent() {
-      console.log("login sent");
+   function onRegisterComplete(userName: string, password: string, dinosaurColor: PlayerColor, petName: string) {
+      onRegisterButtonClick(userName, password, dinosaurColor, petName);
+      setCurrentScreen("Login");
    }
 
 
+   function onRegisterCancel() {
+      setCurrentScreen("Home");
+   }
+
+   //endregion Register
 
 
    return (
@@ -54,12 +69,13 @@ export function Home() {
 
          </button>
          {
-            loginPageOn && <LoginPage onLoginSubmit={ loginSubmitSent }/>
+            loginPageOn && <LoginPage onLoginCancel={ cancelLogin } onLoginSubmit={ onLoginSubmit }/>
          }
          {
             registerPageOn &&
-            <Register onUserRegister={ onRegisterButton } password={ null } petName={ null } petColor={ "orange" }
-               username={ null }/>
+            <Register onUserRegister={
+               (usernameSubmit, passwordSubmit, petNameSubmit, petColorSubmit) => onRegisterComplete(usernameSubmit, passwordSubmit, petColorSubmit, petNameSubmit) }
+            onRegisterCancel={ onRegisterCancel }/>
          }
       </div>
    );

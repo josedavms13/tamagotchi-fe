@@ -5,19 +5,22 @@ export const useRegister = () => {
 
    const [isRegistered, setIsRegistered] = useState(false);
 
-   function doRegister(username: string, password: string, dinoColor: PlayerColor) {
-      doRegisterCall(username, password, dinoColor)
+   function doRegister(username: string, password: string, petName: string, dinoColor: PlayerColor) {
+      doRegisterCall(username, password, petName, dinoColor)
          .then((data) => {
             setIsRegistered(data.data);
          });
    }
 
-   function doRegisterCall(username: string, password: string, dinoColor: PlayerColor): Promise<{ data: boolean }> {
+   function doRegisterCall(username: string, password: string, petName: string, dinoColor: PlayerColor): Promise<{ data: boolean }> {
       return new Promise((resolve, reject) => {
          const storage = {
-            username, password, dinoColor
+            username, password, petName, dinoColor
          };
-         window.localStorage.setItem("user", JSON.stringify(storage));
+         const localStorageUsers = localStorage.getItem("users");
+         const itemToCreate = localStorageUsers ? JSON.parse(localStorageUsers) : [];
+         itemToCreate.push(storage);
+         window.localStorage.setItem("users", JSON.stringify(itemToCreate));
          setTimeout(() => {
             resolve({data: true});
          });

@@ -1,22 +1,25 @@
-import {IMessage, IResgisterTypes} from "./resgisterTypes.ts";
+import {IMessage, IRegisterTypes} from "./resgisterTypes.ts";
 import "./resgisterStyles.css";
-import {useState} from "react";
-import {Home} from "../home/Home.tsx";
+import {useEffect, useState} from "react";
+import greenDinosaur from "../../assets/sprites/dinocharacters/gifs/DinoSprites_green.gif";
+import yellowDinosaur from "../../assets/sprites/dinocharacters/gifs/DinoSprites_yellow.gif";
+import blueDinosaur from "../../assets/sprites/dinocharacters/gifs/DinoSprites_blue.gif";
+import redDinosaur from "../../assets/sprites/dinocharacters/gifs/DinoSprites_red.gif";
+import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts";
 
-export function Register({username, password, petName, petColor, onUserRegister}: IResgisterTypes) {
+export function Register({onUserRegister, onRegisterCancel}: IRegisterTypes) {
 
-   const [userNameField, setUserNameField] = useState(username);
-   const [passwordField, setPasswordField] = useState(password);
-   const [petNameField, setPetNameField] = useState(petName);
-   const [colorField, setColorField] = useState(petColor);
-   const [goToHome, setGoToHome] = useState(false);
+   const [userNameField, setUserNameField] = useState("");
+   const [passwordField, setPasswordField] = useState("");
+   const [rePasswordField, setRePasswordField] = useState("");
+   const [petNameField, setPetNameField] = useState("");
+   const [playerDinoColor, setPlayerDinoColor] = useState<null | PlayerColor>(null);
 
 
    const [messageInfo, setMessageInfo] = useState<null | IMessage>(null);
 
 
    function verifyAndSubmit() {
-      // Si cumle con tada
       if (!userNameField || userNameField.length < 1) {
          showMessage({
             title: "User name must be provided",
@@ -31,6 +34,14 @@ export function Register({username, password, petName, petColor, onUserRegister}
          }));
          return;
       }
+
+      if (!rePasswordField || rePasswordField.length < 1) {
+         showMessage(({
+            title: "You must confirm your password",
+            message: "Password confirmation is empty"
+         }));
+         return;
+      }
       if (!petNameField || petNameField.length < 1) {
          showMessage(({
             title: "Pet name must be provided",
@@ -38,16 +49,24 @@ export function Register({username, password, petName, petColor, onUserRegister}
          }));
          return;
       }
-      if(colorField===undefined){
 
-         showMessage(({
-            title: "Pet color must be provided",
-            message: "Pet color is empty"
-         }));
+      if (passwordField !== rePasswordField) {
+         showMessage({
+            title: "Password and confirmation don't match",
+            message: "Password and confirmation must be equal"
+         });
          return;
       }
 
-      onUserRegister(userNameField, passwordField, colorField, petNameField );
+      if (!playerDinoColor) {
+         showMessage({
+            title: "Non dinosaur picked",
+            message: "Must select one"
+         });
+         return;
+      }
+
+      onUserRegister(userNameField, passwordField, petNameField, playerDinoColor);
    }
 
    function showMessage(message: IMessage) {
@@ -58,8 +77,31 @@ export function Register({username, password, petName, petColor, onUserRegister}
    }
 
    function goBackToHomeClick() {
-      setGoToHome(true);
+      onRegisterCancel();
    }
+
+   function pickDinosaur(dinoColor: "green" | "red" | "yellow" | "blue") {
+      switch (dinoColor) {
+      case "blue":
+         setPlayerDinoColor(PlayerColor.BLUE);
+         break;
+      case "green":
+         setPlayerDinoColor(PlayerColor.GREEN);
+         break;
+      case "yellow":
+         setPlayerDinoColor(PlayerColor.YELLOW);
+         break;
+      case "red":
+         setPlayerDinoColor(PlayerColor.RED);
+         break;
+      }
+   }
+
+   useEffect(() => {
+      console.log(playerDinoColor);
+   }, [playerDinoColor]);
+
+
    return <div className="register">
       <div className="infoSpace">
          <label form="userName">UserName</label>
@@ -78,6 +120,13 @@ export function Register({username, password, petName, petColor, onUserRegister}
          />
       </div>
       <div className="infoSpace">
+         <label form="re-password">Repeat your password</label>
+         <input type="password"
+            className={ "password" }
+            onChange={ (event) => setRePasswordField(event.target.value) }
+         />
+      </div>
+      <div className="infoSpace">
          <label form="petName">PetName</label>
          <input type="text"
             className={ "petName" }
@@ -85,24 +134,28 @@ export function Register({username, password, petName, petColor, onUserRegister}
          />
       </div>
       <div className="petColor">
-         <input type="color" list="colors" onChange={(event)=>setColorField(event.target.list)}/>
-         <datalist id="colors">
-            <option id={"blue"}> #0000FF</option>
-            <option id={"red"}> #FF0000</option>
-            <option id={"yellow"}> #FF6600</option>
-            <option id={"green"}> #008000</option>
-         </datalist>
+         <span>Pick your dino color</span>
+         <div className="pet-color-picker-container">
+            <div onClick={ () => pickDinosaur("blue") } className="dino-color">
+               <img src={ blueDinosaur } alt="blue dinosaur"/>
+            </div>
+            <div onClick={ () => pickDinosaur("red") } className="dino-color">
+               <img src={ redDinosaur } alt="red dinosaur"/>
+            </div>
+            <div onClick={ () => pickDinosaur("yellow") } className="dino-color">
+               <img src={ yellowDinosaur } alt="yellow dinosaur"/>
+            </div>
+            <div onClick={ () => pickDinosaur("green") } className="dino-color">
+               <img src={ greenDinosaur } alt="green dinosaur"/>
+            </div>
+         </div>
       </div>
       <div className="button">
-         <button type="submit" onClick={verifyAndSubmit}>Submit</button>
-         <button onClick={goBackToHomeClick}>Home</button>
+         <button type="submit" onClick={ verifyAndSubmit }>Submit</button>
+         <button onClick={ goBackToHomeClick }>Home</button>
       </div>
       {
-         messageInfo && <Message title={messageInfo.title} message={messageInfo.message}/>
-      }
-
-      {
-         goToHome && <Home/>
+         messageInfo && <Message title={ messageInfo.title } message={ messageInfo.message }/>
       }
    </div>;
 }
