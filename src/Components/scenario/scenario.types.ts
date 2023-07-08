@@ -1,14 +1,5 @@
 import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts";
 
-export interface IPlayerCharacterTypes {
+export interface IScenarioTypes {
    characterColor: PlayerColor
 }
-
-/**export enum PlayerColor {
-   GREEN,
-   BLUE,
-   YELLOW,
-   RED
-
-}
- **/

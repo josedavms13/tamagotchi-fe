@@ -1,0 +1,40 @@
+.scenario{
+    width: 90%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    z-index: 0;
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.stacksSection{
+    display: flex;
+    justify-content: end;
+    align-content: end;
+    justify-items: end;
+}
+
+.hungry{
+    width: 50%;
+}
+
+.funLevel{
+    width: 50%;
+}
+
+.floor {
+    width: 100%;
+    height: 30%;
+    bottom: 10vh;
+}
+
+.playerCharacter{
+    width: 80vw;
+    height: 90%;
+    z-index: 1;
+}

@@ -1,16 +1,33 @@
-import {useRef} from "react";
-import {WebSockets} from "./Classes/WebSockets/WebSockets.ts";
-import {TikTakToe} from "./Components/games/tik-tak-toe/TikTakToe.tsx";
+
+import {Screen} from "./pages/screen/Screen.tsx";
+import {PlayerColor} from "./hook/playerCharacter/usePlayerCharacterTypes.ts";
+import {useLogin} from "./hook/Login/UseLogin.tsx";
+import {useRegister} from "./hook/Register/UseRegister.tsx";
+import {useEffect} from "react";
+
 
 function App() {
 
-   const sockets = useRef<WebSockets>(
-      new WebSockets("http://localhost", 4500)
-   );
+   const {login} = useLogin();
+
+
+   const {doRegister} = useRegister();
+
+   useEffect(() => {
+      doRegister("pepe", "aoeuaoeu", PlayerColor.RED);
+   }, []);
+
 
    return (
       <>
-         <TikTakToe />
+         <Screen
+            petFun={100}
+            petAge={5}
+            petHeart={100}
+            petHungry={0}
+            petName={"pablo"}
+            petColor={PlayerColor.RED}
+            petIsAlive={true} />
       </>
    );
 }
