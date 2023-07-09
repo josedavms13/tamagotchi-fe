@@ -64,6 +64,10 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
          break;
       }
    }, [currentScreen, refresh]);
+
+   function backToGame() {
+      setCurrentScreen("game");
+   }
    //endregion Page Management
 
    //region Header
@@ -92,9 +96,6 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
       setCurrentScreen("playTogether");
    }
 
-   function backToGame() {
-      setCurrentScreen("game");
-   }
 
    // endregion PlayerForm
 
@@ -109,9 +110,15 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
    function openPlayTogether() {
       setCurrentScreen("playTogether");
    }
-
-
    // endregion PlayTogether
+
+   function onTicTacToeWin() {
+
+   }
+
+   function onTicTacToeLose() {
+
+   }
 
 
 
@@ -146,7 +153,7 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
          }
          {
             showTicTacToe &&
-            <TikTakToe onCancel={backToGame}/>
+            <TikTakToe onLose={onTicTacToeLose} onWin={onTicTacToeWin} onCancel={backToGame}/>
          }
       </div>
    );

@@ -5,19 +5,9 @@ import {Field} from "./field/Field.tsx";
 import {useTicTacToe} from "./useTicTac/UseTicTac.tsx";
 import {v4} from "uuid";
 
-export function TikTakToe({onCancel}: ITicTacToe) {
+export function TikTakToe({onCancel, onLose, onWin}: ITicTacToe) {
 
-   function onPlayerWin() {
-      console.log("Player Win");
-   }
-
-   function onPlayerLose() {
-      console.log("player lose");
-   }
-
-
-   const {fields, playerMove} = useTicTacToe({userName: "Juan", onWin: onPlayerWin, onLose: onPlayerLose});
-
+   const {fields, playerMove} = useTicTacToe({userName: "Juan", onWin, onLose});
 
    const [rowsData, setRowsData] = useState<ITicTacFieldData[][]>([]);
 

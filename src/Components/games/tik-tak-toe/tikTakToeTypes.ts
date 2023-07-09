@@ -1,7 +1,6 @@
+import {IUseTicTac} from "./useTicTac/useTicTac.types.ts";
 
-export interface ITicTacToe {
-   onWin: () => void,
-   onLose: () => void,
+export interface ITicTacToe extends IUseTicTac{
    onCancel: () => void,
 }
 

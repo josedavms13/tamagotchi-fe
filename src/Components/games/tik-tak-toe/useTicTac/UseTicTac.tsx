@@ -3,7 +3,7 @@ import {ITicTacPlayer, IUseTicTac} from "./useTicTac.types.ts";
 import {ITicTacFieldData, tFieldData} from "../tikTakToeTypes.ts";
 
 
-export const useTicTacToe = ({userName, onLose, onWin}: IUseTicTac) => {
+export const useTicTacToe = ({userName}: IUseTicTac) => {
 
    //region Game engine
    const [fields, setFields] = useState(initialFieldsState);

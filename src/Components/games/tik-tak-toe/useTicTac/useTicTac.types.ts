@@ -1,7 +1,7 @@
-import {ITicTacToe} from "../tikTakToeTypes.ts";
-
-export interface IUseTicTac extends ITicTacToe {
+export interface IUseTicTac {
    userName: string,
+   onWin: () => void,
+   onLose: () => void,
 }
 
 export interface ITicTacPlayer {
