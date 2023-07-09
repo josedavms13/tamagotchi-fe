@@ -112,13 +112,18 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
    }
    // endregion PlayTogether
 
-   function onTicTacToeWin() {
-
+   function onPlayerWin() {
+      console.log("player win");
    }
 
-   function onTicTacToeLose() {
-
+   function onPlayerLose() {
+      console.log("player lose");
    }
+
+   function onEven() {
+      console.log("even");
+   }
+
 
 
 
@@ -153,7 +158,7 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
          }
          {
             showTicTacToe &&
-            <TikTakToe petName={petName} onLose={onTicTacToeLose} onWin={onTicTacToeWin} onCancel={backToGame}/>
+            <TikTakToe petName={petName} onLose={onPlayerLose} onWin={onPlayerWin} onEven={onEven} onCancel={backToGame}/>
          }
       </div>
    );

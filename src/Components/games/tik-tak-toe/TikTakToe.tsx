@@ -1,42 +1,22 @@
-import {useEffect, useState} from "react";
 import "./tikTakToe.css";
-import {ITicTacFieldData, ITicTacToe} from "./tikTakToeTypes.ts";
+import {ITicTacToe} from "./tikTakToeTypes.ts";
 import {Field} from "./field/Field.tsx";
 import {useTicTacToe} from "./useTicTac/UseTicTac.tsx";
-import {Message} from "../../message/Message.tsx";
+import {TicTacMessage} from "./ticTacMessage/TicTacMessage.tsx";
 
-export function TikTakToe({petName, onCancel, onLose, onWin}: ITicTacToe) {
+export function TikTakToe({petName, onCancel, onLose, onWin, onEven}: ITicTacToe) {
 
    const {
-      message,
-      doMove,
-      fields
-   } = useTicTacToe({petName, onWin, onLose});
-
-   const [rowsData, setRowsData] = useState<ITicTacFieldData[][]>(() => {
-      const resultArray: ITicTacFieldData[][] = [];
-      const fieldsCopy = [...fields];
-      for (let i = 0; i < 3; i++) {
-         const sliced = fieldsCopy.splice(0, 3);
-         resultArray.push(sliced);
-      }
-      return resultArray;
-   });
-
-   useEffect(() => {
-      const resultArray: ITicTacFieldData[][] = [];
-      const fieldsCopy = [...fields];
-      for (let i = 0; i < 3; i++) {
-         const sliced = fieldsCopy.splice(0, 3);
-         resultArray.push(sliced);
-      }
-      setRowsData(resultArray);
-   }, []);
+      doPlayerMove,
+      fields,
+      currentPlayer,
+      isIAThinking,
+   } = useTicTacToe({petName, onWin, onLose, onEven});
 
    return (
       <div className="tic-tac-toe">
          <h1>Tic Tac Toe</h1>
-         <h4>{ petName }</h4>
+         <h4>{ currentPlayer.toUpperCase() }</h4>
          {
             fields &&
             <div className={ "tic-tac-toe-container" }>
@@ -46,7 +26,7 @@ export function TikTakToe({petName, onCancel, onLose, onWin}: ITicTacToe) {
                      id={ field.index }
                      fieldMark={ field.fieldData }
                      isLocked={ field.isLocked }
-                     onFieldSelected={ doMove }/>)
+                     onFieldSelected={ doPlayerMove }/>)
                }
             </div>
          }
@@ -54,8 +34,8 @@ export function TikTakToe({petName, onCancel, onLose, onWin}: ITicTacToe) {
             Cancel
          </button>
          {
-            message &&
-            <Message title={ message.title } message={ message.message }/>
+            isIAThinking &&
+            <TicTacMessage/>
          }
       </div>
    );

@@ -2,6 +2,7 @@ export interface IUseTicTac {
    petName: string,
    onWin: () => void,
    onLose: () => void,
+   onEven: () => void,
 }
 
 export interface ITicTacPlayer {
