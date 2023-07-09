@@ -1,109 +1,63 @@
 import {useEffect, useState} from "react";
 import {ITicTacPlayer, IUseTicTac} from "./useTicTac.types.ts";
 import {ITicTacFieldData, tFieldData} from "../tikTakToeTypes.ts";
+import {IMessage} from "../../../message/message.types.ts";
 
 
-export const useTicTacToe = ({userName}: IUseTicTac) => {
+export const useTicTacToe = ({petName}: IUseTicTac) => {
 
    //region Game engine
    const [fields, setFields] = useState(initialFieldsState);
-   const [error, setError] = useState<null | string>(null);
+   const [message, setMessage] = useState<null | IMessage>(null);
    const [isPlayerLocked, setIsPlayerLocked] = useState(false);
-   const [turnPlayerIndex, setTurnPlayerIndex] = useState(0);
-   const [players] = useState<ITicTacPlayer[]>([
-      {
-         id: "0",
-         userName: userName,
-         cameCharacter: "X"
-      },
-      {
-         id: "1",
-         userName: getIaName(),
-         cameCharacter: "IA"
-      },
-   ]);
+   const [currentTurn, setCurrentTurn] = useState(0);
 
-
-   function changeTurns(): void {
-      setTurnPlayerIndex((prev) => {
-         if (prev + 1 < players.length) {
-            return prev + 1;
-         } else {
-            return 0;
-         }
-      }
-      );
-   }
-
-
-
-   function showError(error: string): void {
-      setError(error);
+   // Private
+   function showError(message: IMessage, timeOut?: number) {
+      setMessage(message);
       setTimeout(() => {
-         setError(null);
-      }, 1000);
+         setMessage(null);
+      }, timeOut ? timeOut : 1500);
    }
 
-   function doMove(turnPlayerIndex: number, fieldIndex: number, gameCharacter: tFieldData): void {
-      markField(fieldIndex, gameCharacter);
-      changeTurns();
-      console.log({turnPlayerIndex});
-
-   }
-
-   useEffect(() => {
-      if (turnPlayerIndex !== 0) {
-         iAMove();
-         setIsPlayerLocked(true);
-
-      } else {
-         setIsPlayerLocked(false);
-      }
-   }, [turnPlayerIndex]);
-
-   function markField(fieldId: number, gameCharacter: tFieldData) {
-      if (fieldId < 0 || fieldId > fields.length) {
-         showError("fieldId incorrect");
+   function doMove(fieldId: number) {
+      console.log(`Doing move ${ fieldId }`);
+      if (fieldId < 0) {
+         showError({
+            title: "Invalid movement",
+            message: "Field id must be positive"
+         });
          return;
       }
-
-      const fieldIndex = fields.findIndex((field) => field.index === fieldId);
-      const fieldCopy = structuredClone(fields);
-      fieldCopy[fieldIndex].fieldData = gameCharacter;
-      fieldCopy[fieldIndex].isLocked = true;
-      setFields(fieldCopy);
-   }
-
-   useEffect(() => {
-      console.log({turnPlayerIndex});
-   }, [turnPlayerIndex]);
-
-   function getIaName(): string {
-      const randomIndex = Math.floor(Math.random() * possibleIaNames.length);
-      return possibleIaNames[randomIndex];
-   }
-
-   //endregion Game engine
-
-   function iAMove() {
-      const fieldsCopy = structuredClone(fields);
-      const unlockedFields = fieldsCopy.filter((field) => !field.isLocked);
-      const randomPick = Math.floor(Math.random() * unlockedFields.length);
-      console.log("IA move", {unlockedFields});
-      doMove(1, randomPick, "IA");
-
-   }
-
-   function playerMove(fieldIndex: number): void {
+      if (fieldId >= fields.length) {
+         showError({
+            title: "Field selected out of bound",
+            message: "Select a valid field"
+         });
+         return;
+      }
       if (!isPlayerLocked) {
-         doMove(0, fieldIndex, "X");
-
+         setFields((prev) => {
+            const foundField = prev.findIndex((field) => field.index === fieldId);
+            if (prev[foundField].isLocked) {
+               return prev;
+            } else {
+               const prevCopy = [...prev];
+               prevCopy[foundField].fieldData = "X";
+               prevCopy[foundField].isLocked = true;
+               return prevCopy;
+            }
+         });
       }
    }
 
-   return {playerMove, fields, error};
-};
+   return {
+      message,
+      doMove,
+      fields,
 
+   };
+};
 
 const possibleIaNames = ["tribe", "place", "drive", "where", "trouble"];
 

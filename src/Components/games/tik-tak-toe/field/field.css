@@ -1,8 +1,5 @@
 
 .square{
-    box-sizing: border-box;
-    height: 100%;
-    width: calc(100% / 3);
     border: black solid 2px;
 
     display: flex;

@@ -153,7 +153,7 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
          }
          {
             showTicTacToe &&
-            <TikTakToe onLose={onTicTacToeLose} onWin={onTicTacToeWin} onCancel={backToGame}/>
+            <TikTakToe petName={petName} onLose={onTicTacToeLose} onWin={onTicTacToeWin} onCancel={backToGame}/>
          }
       </div>
    );

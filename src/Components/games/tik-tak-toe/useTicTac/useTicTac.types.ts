@@ -1,5 +1,5 @@
 export interface IUseTicTac {
-   userName: string,
+   petName: string,
    onWin: () => void,
    onLose: () => void,
 }

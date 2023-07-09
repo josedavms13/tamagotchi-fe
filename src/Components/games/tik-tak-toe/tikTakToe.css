@@ -17,6 +17,14 @@
 
 .tic-tac-toe h1 {
     color: white;
+    font-size: 2.4rem;
+}
+
+.tic-tac-toe h4 {
+    color: white;
+    font-size: 2rem;
+
+    border-bottom: solid 2px white;
 }
 
 .tic-tac-toe-container {
@@ -25,8 +33,11 @@
     height: var(--general-size);
     margin: 20px;
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+
 
     background-color: #7ab0dc;
     font-size: 2rem;
