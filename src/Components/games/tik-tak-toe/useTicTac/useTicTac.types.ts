@@ -1,4 +1,6 @@
-export interface IUseTicTac {
+import {ITicTacToe} from "../tikTakToeTypes.ts";
+
+export interface IUseTicTac extends ITicTacToe {
    userName: string,
 }
 

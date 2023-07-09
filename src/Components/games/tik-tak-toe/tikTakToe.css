@@ -1,17 +1,36 @@
-*{
-    margin: 0;
-    padding: 0;
+.tic-tac-toe {
+    background-color: #346868;
     box-sizing: border-box;
+    height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
 }
 
-.general-container {
-    --general-size: 400px;
+.tic-tac-toe h1 {
+    color: white;
+}
+
+.tic-tac-toe-container {
+    --general-size: 70vh;
     width: var(--general-size);
     height: var(--general-size);
     margin: 20px;
 
     display: flex;
     flex-direction: column;
+
+    background-color: #7ab0dc;
+    font-size: 2rem;
+    border: black solid 2px;
 }
 
 .row {

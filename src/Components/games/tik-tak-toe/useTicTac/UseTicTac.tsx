@@ -3,7 +3,7 @@ import {ITicTacPlayer, IUseTicTac} from "./useTicTac.types.ts";
 import {ITicTacFieldData, tFieldData} from "../tikTakToeTypes.ts";
 
 
-export const useTicTacToe = ({userName}: IUseTicTac) => {
+export const useTicTacToe = ({userName, onLose, onWin}: IUseTicTac) => {
 
    //region Game engine
    const [fields, setFields] = useState(initialFieldsState);
@@ -25,7 +25,6 @@ export const useTicTacToe = ({userName}: IUseTicTac) => {
 
 
    function changeTurns(): void {
-
       setTurnPlayerIndex((prev) => {
          if (prev + 1 < players.length) {
             return prev + 1;
@@ -36,9 +35,7 @@ export const useTicTacToe = ({userName}: IUseTicTac) => {
       );
    }
 
-   useEffect(() => {
-      console.log(turnPlayerIndex);
-   }, [turnPlayerIndex]);
+
 
    function showError(error: string): void {
       setError(error);

@@ -1,4 +1,9 @@
 
+export interface ITicTacToe {
+   onWin: () => void,
+   onLose: () => void,
+   onCancel: () => void,
+}
 
 
 export interface ITicTacFieldData {

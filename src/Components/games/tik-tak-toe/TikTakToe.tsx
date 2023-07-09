@@ -1,13 +1,22 @@
 import {useEffect, useState} from "react";
 import "./tikTakToe.css";
-import {ITicTacFieldData} from "./tikTakToeTypes.ts";
+import {ITicTacFieldData, ITicTacToe} from "./tikTakToeTypes.ts";
 import {Field} from "./field/Field.tsx";
 import {useTicTacToe} from "./useTicTac/UseTicTac.tsx";
 import {v4} from "uuid";
 
-export function TikTakToe() {
+export function TikTakToe({onCancel}: ITicTacToe) {
 
-   const {fields, playerMove, error} = useTicTacToe({userName: "Juan"});
+   function onPlayerWin() {
+      console.log("Player Win");
+   }
+
+   function onPlayerLose() {
+      console.log("player lose");
+   }
+
+
+   const {fields, playerMove} = useTicTacToe({userName: "Juan", onWin: onPlayerWin, onLose: onPlayerLose});
 
 
    const [rowsData, setRowsData] = useState<ITicTacFieldData[][]>([]);
@@ -27,20 +36,27 @@ export function TikTakToe() {
    }
 
    return (
-      <div className="general-container">
-         {
-            rowsData && rowsData.length > 0 &&
-            rowsData.map((row: ITicTacFieldData[]) => (
-               <div key={v4()} className="row">
-                  {
-                     row.map((field: ITicTacFieldData) => (
-                        <Field key={v4()} id={ field.index } fieldMark={ field.fieldData } isLocked={ field.isLocked }
-                           onFieldSelected={ markField }/>
-                     ))
-                  }
-               </div>
-            ))
-         }
+      <div className="tic-tac-toe">
+         <h1>Tic Tac Toe</h1>
+         <div className="tic-tac-toe-container">
+            {
+               rowsData && rowsData.length > 0 &&
+               rowsData.map((row: ITicTacFieldData[]) => (
+                  <div key={ v4() } className="row">
+                     {
+                        row.map((field: ITicTacFieldData) => (
+                           <Field key={ v4() } id={ field.index } fieldMark={ field.fieldData }
+                              isLocked={ field.isLocked }
+                              onFieldSelected={ markField }/>
+                        ))
+                     }
+                  </div>
+               ))
+            }
+         </div>
+         <button onClick={onCancel}>
+            Cancel
+         </button>
       </div>
    );
 }

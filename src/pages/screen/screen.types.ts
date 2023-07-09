@@ -3,7 +3,8 @@ import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts
 export  type tScreen = "playForm" |
    "feed" |
    "game" |
-   "playTogether"
+   "playTogether" |
+   "ticTacToe"
 ;
 
 export interface IScreen {
