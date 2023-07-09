@@ -4,7 +4,7 @@ import {ITicTacFieldData, tFieldData} from "../tikTakToeTypes.ts";
 import {IMessage} from "../../../message/message.types.ts";
 
 
-export const useTicTacToe = ({petName, onWin, onLose, onEven}: IUseTicTac) => {
+export const useTicTacToe = ({petName, onWin, onLose}: IUseTicTac) => {
 
    //region Game engine
    const [fields, setFields] = useState(initialFieldsState);
@@ -123,41 +123,123 @@ export const useTicTacToe = ({petName, onWin, onLose, onEven}: IUseTicTac) => {
       const winConditionX1 = [0, 4, 8];
       const winConditionX2 = [2, 4, 6];
 
-      // Player
-      for (let i = 0; i < 9; i++) {
-         if (
-            (fields[winConditionH1[0]].fieldData === "X" &&
-               fields[winConditionH2[1]].fieldData === "X" &&
-               fields[winConditionH3[2]].fieldData === "X") ||
+      console.log(fields[winConditionH1[0]]);
+      console.log(fields[winConditionH1[1]]);
+      console.log(fields[winConditionH1[2]]);
 
-            (fields[winConditionV1[0]].fieldData === "X" &&
-               fields[winConditionV2[1]].fieldData === "X" &&
-               fields[winConditionV3[2]].fieldData === "X") ||
+      let isPlayerH1 = true;
+      let isPlayerH2 = true;
+      let isPlayerH3 = true;
 
-            (fields[winConditionX1[0]].fieldData === "X" &&
-               fields[winConditionX2[1]].fieldData === "X"
-            )
-         ) {
-            onWin();
-         } else if (
-            (
-               fields[winConditionH1[0]].fieldData === "IA" &&
-               fields[winConditionH2[1]].fieldData === "IA" &&
-               fields[winConditionH3[2]].fieldData === "IA") ||
+      let isPlayerV1 = true;
+      let isPlayerV2 = true;
+      let isPlayerV3 = true;
 
-            (fields[winConditionV1[0]].fieldData === "IA" &&
-               fields[winConditionV2[1]].fieldData === "IA" &&
-               fields[winConditionV3[2]].fieldData === "IA") ||
+      let isPlayerX1 = true;
+      let isPlayerX2 = true;
 
-            (fields[winConditionX1[0]].fieldData === "IA" &&
-               fields[winConditionX2[1]].fieldData === "IA"
-            )
-         ) {
-            onLose();
-         } else {
-            onEven();
+      let isIAH1 = true;
+      let isIAH2 = true;
+      let isIAH3 = true;
+
+      let isIAV1 = true;
+      let isIAV2 = true;
+      let isIAV3 = true;
+
+      let isIAX1 = true;
+      let isIAX2 = true;
+
+      for (let i = 0; i < 3; i++) {
+         //region Player Win
+         // Horizontal
+         if (fields[winConditionH1[i]].fieldData !== "X") {
+            isPlayerH1 = false;
          }
+         if (fields[winConditionH2[i]].fieldData !== "X") {
+            isPlayerH2 = false;
+         }
+         if (fields[winConditionH3[i]].fieldData !== "X") {
+            isPlayerH3 = false;
+         }
+         // Vertical
+         if (fields[winConditionV1[i]].fieldData !== "X") {
+            isPlayerV1 = false;
+         }
+         if (fields[winConditionV2[i]].fieldData !== "X") {
+            isPlayerV2 = false;
+         }
+         if (fields[winConditionV3[i]].fieldData !== "X") {
+            isPlayerV3 = false;
+         }
+         // X condition
+         if (fields[winConditionX1[i]].fieldData !== "X") {
+            isPlayerX1 = false;
+         }
+         if (fields[winConditionX2[i]].fieldData !== "X") {
+            isPlayerX2 = false;
+         }
+         //endregion Player Win
+
+
+         //region IA win
+         // Horizontal
+         if (fields[winConditionH1[i]].fieldData !== "IA") {
+            isIAH1 = false;
+         }
+         if (fields[winConditionH2[i]].fieldData !== "IA") {
+            isIAH2 = false;
+         }
+         if (fields[winConditionH3[i]].fieldData !== "IA") {
+            isIAH3 = false;
+         }
+         // Vertical
+         if (fields[winConditionV1[i]].fieldData !== "IA") {
+            isIAV1 = false;
+         }
+         if (fields[winConditionV2[i]].fieldData !== "IA") {
+            isIAV2 = false;
+         }
+         if (fields[winConditionV3[i]].fieldData !== "IA") {
+            isIAV3 = false;
+         }
+         // X condition
+         if (fields[winConditionX1[i]].fieldData !== "IA") {
+            isIAX1 = false;
+         }
+         if (fields[winConditionX2[i]].fieldData !== "IA") {
+            isIAX2 = false;
+         }
+         //endregion IA Win
+
       }
+
+      if (isPlayerH1 ||
+         isPlayerH2 ||
+         isPlayerH3 ||
+         isPlayerV1 ||
+         isPlayerV2 ||
+         isPlayerV3 ||
+         isPlayerX1 ||
+         isPlayerX2) {
+         console.log("Player Won");
+         onWin();
+         return;
+      }
+
+      if (
+         isIAH1 ||
+         isIAH2 ||
+         isIAH3 ||
+         isIAV1 ||
+         isIAV2 ||
+         isIAV3 ||
+         isIAX1 ||
+         isIAX2
+      ) {
+         onLose();
+         return;
+      }
+
 
    }, [fields]);
 
