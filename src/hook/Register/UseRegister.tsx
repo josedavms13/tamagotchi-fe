@@ -1,28 +1,41 @@
-import {PlayerColor} from "../playerCharacter/usePlayerCharacterTypes.ts";
 import {useState} from "react";
+import {useUserStorage} from "../UserStorage/UseUserStorage.tsx";
+import {usePetStorage} from "../CharacterStorage/UsePetStorage.tsx";
+import {IPetInfo} from "../CharacterStorage/characterStorage.types.ts";
+import {IUser} from "../Login/login.types.ts";
 
 export const useRegister = () => {
 
+   const {createNewUser} = useUserStorage();
+   const {createNewPet} = usePetStorage();
+
    const [isRegistered, setIsRegistered] = useState(false);
 
-   function doRegister(username: string, password: string, dinoColor: PlayerColor) {
-      doRegisterCall(username, password, dinoColor)
+   function doRegister(user: IUser, dino: IPetInfo) {
+      doRegisterCall(user, dino)
          .then((data) => {
             setIsRegistered(data.data);
          });
    }
 
-   function doRegisterCall(username: string, password: string, dinoColor: PlayerColor): Promise<{ data: boolean }> {
-      return new Promise((resolve, reject) => {
-         const storage = {
-            username, password, dinoColor
+   async function doRegisterCall(user: IUser, dino: IPetInfo): Promise<{ data: boolean }> {
+      try {
+         await createNewUser(user);
+         const petToCreate: IPetInfo = {
+            userName: user.username,
+            petAge: dino.petAge,
+            petFun: dino.petFun,
+            petHeart: dino.petHeart,
+            petHungry: dino.petHungry,
+            petColor: dino.petColor,
+            petName: dino.petName,
+            petIsAlive: dino.petIsAlive
          };
-         window.localStorage.setItem("user", JSON.stringify(storage));
-         setTimeout(() => {
-            resolve({data: true});
-         });
-      });
+         await createNewPet(petToCreate);
+         return {data: true};
+      } catch (e) {
+         return {data: false};
+      }
    }
-
    return {doRegister, isRegistered};
 };

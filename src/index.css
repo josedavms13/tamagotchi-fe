@@ -1,5 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Belanosima', sans-serif;
+}
+
+button {
+    padding: 15px;
+    font-size: 1.5rem;
+    min-width: 200px;
+    text-transform: capitalize;
+    cursor: pointer;
+    background-color: #ffe19d;
+    border: black solid 3px;
+}
+
+button:hover {
+    background-color: #facc3d;
+}
+
+input {
+    padding: 17px;
 }

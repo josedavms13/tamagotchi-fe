@@ -1,40 +1,16 @@
 import {ILoginPageTypes} from "./loginPageTypes.ts";
 import "./loginPageStyles.css";
 import {useState} from "react";
-import {Home} from "../home/Home.tsx";
-import {Screen} from "../screen/Screen.tsx";
 
 export function LoginPage({
    onLoginSubmit,
-   userNameInput,
-   passwordInput,
-   petAgeCharacter,
-   petFunCharacter,
-   petHeartCharacter,
-   petIsALive,
-   petHungryCharacter,
-   petNameCharacter,
-   petColorCharacter,
-   petUrlImage
+   onLoginCancel
 }: ILoginPageTypes) {
 
-   const [userNameField] = useState(userNameInput);
-   const [passwordField] = useState(passwordInput);
-   const [cancelLoginField, setCancelLogin] = useState(false);
-   const [loginPetAge, setLoginPetAge] = useState(petAgeCharacter);
-   const [loginPetFun, setLoginPetFun] = useState(petFunCharacter);
-   const [loginPetUrl, setLoginPetUrl] = useState(petUrlImage);
-   const [loginPetHungry, setLoginPetHungry] = useState(petHungryCharacter);
-   const [loginPetColor, setLoginPetColor] = useState(petColorCharacter);
-   const [loginPetHeart, setLoginPetHeart] = useState(petHeartCharacter);
-   const [loginPetName, setLoginPetName] = useState(petNameCharacter);
-   const [loginPetIsALive, setLoginPetIsALive] = useState(petIsALive);
+   const [userNameField, setUserNameField] = useState("");
+   const [passwordField, setPasswordField] = useState("");
 
    const [messageInfo, setMessageInfo] = useState<null | IMessage>(null);
-
-   function petAgeToRecive() {
-      setLoginPetAge();
-   }
 
    function submitLoginInfo() {
       if (!userNameField || userNameField.length < 1) {
@@ -52,10 +28,7 @@ export function LoginPage({
          return;
       }
       onLoginSubmit(userNameField, passwordField);
-      setOnSumbitComplete(true);
    }
-
-   const [onSubmitComplete, setOnSumbitComplete] = useState(false);
 
    function showMessage(message: IMessage) {
       setMessageInfo(message);
@@ -64,52 +37,31 @@ export function LoginPage({
       }, 2000);
    }
 
-   function goToHomeClick() {
-      setCancelLogin(true);
-   }
-
-
    return (
       <div className="loginPage">
          <div className="userName">
-            <label form="userName">User Name</label>
-            <input type="text" className={ "completeBar" }>{ userNameInput }</input>
+            <label htmlFor={ "user-name-field" }>User Name</label>
+            <input id={ "user-name-field" } type="text" className={ "completeBar" }
+               onChange={ (ev) => setUserNameField(ev.target.value) }/>
          </div>
          <div className="password">
-            <label form={ "loginPassword" }>Password</label>
-            <input type="password" className={ "completeBar" }>{ passwordInput }</input>
+            <label htmlFor={ "password-field" }>Password</label>
+            <input id={ "password-field" } type="password" className={ "completeBar" }
+               onChange={ (ev) => setPasswordField(ev.target.value) }/>
          </div>
          <div className={ "buttons" }>
             <button className={ "submitLogin" }
                type={ "submit" }
                onClick={ submitLoginInfo }>
                submit
-               {
-                  onSubmitComplete &&
-                  <Screen
-                     petFun={ loginPetFun }
-                     petAge={ loginPetAge }
-                     petHeart={ loginPetHeart }
-                     petHungry={ loginPetHungry }
-                     petName={ loginPetName }
-                     urlDinosaur={ loginPetUrl }
-                     petColor={ loginPetColor }
-                     petIsAlive={ loginPetIsALive }
-                  /> }
-
             </button>
-            <button onClick={ goToHomeClick }>
-               Home
+            <button onClick={ onLoginCancel }>
+               Go Back
             </button>
-
-            {
-               cancelLoginField && <Home/>
-            }
-            {
-               messageInfo &&
-               <Message message={ messageInfo.message } title={ messageInfo.title }/>
-            }
          </div>
+         {
+            messageInfo && <Message title={messageInfo.title} message={messageInfo.message}/>
+         }
 
       </div>
    );

@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600&display=swap');
 
 .screen{
     background-color: cadetblue;
@@ -6,7 +5,6 @@
     padding: 25px;
     justify-content: center;
     align-items: center;
-    font-family: 'Belanosima', sans-serif;
 }
 
 .infoSection{

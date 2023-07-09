@@ -1,4 +1,8 @@
 .loginPage{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100000;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -39,4 +43,10 @@
     text-transform: uppercase;
     font-weight: bold;
     color: blueviolet;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
