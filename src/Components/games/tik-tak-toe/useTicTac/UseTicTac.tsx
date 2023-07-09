@@ -180,7 +180,6 @@ export const useTicTacToe = ({petName, onWin, onLose}: IUseTicTac) => {
          }
          //endregion Player Win
 
-
          //region IA win
          // Horizontal
          if (fields[winConditionH1[i]].fieldData !== "IA") {
@@ -210,7 +209,6 @@ export const useTicTacToe = ({petName, onWin, onLose}: IUseTicTac) => {
             isIAX2 = false;
          }
          //endregion IA Win
-
       }
 
       if (isPlayerH1 ||
