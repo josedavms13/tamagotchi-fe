@@ -1,10 +1,10 @@
 import {PlayerColor} from "../playerCharacter/usePlayerCharacterTypes.ts";
 
 export interface ICharacterStorage {
-   data: IUserRegister[]
+   data: IPetInfo[]
 }
 
-export interface IUserRegister {
+export interface IPetInfo {
    userName: string,
    petName: string,
    petColor: PlayerColor,

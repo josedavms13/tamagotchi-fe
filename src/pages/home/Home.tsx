@@ -3,7 +3,8 @@ import {Register} from "../Register/Register.tsx";
 import {useEffect, useState} from "react";
 import {IHome, tHome} from "./home.types.ts";
 import "./home.css";
-import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts";
+import {IUser} from "../../hook/Login/login.types.ts";
+import {IPetInfo} from "../../hook/CharacterStorage/characterStorage.types.ts";
 
 export function Home({onLoginSubmit, onRegisterButtonClick}: IHome) {
    const [loginPageOn, setLoginPageOn] = useState(false);
@@ -46,8 +47,8 @@ export function Home({onLoginSubmit, onRegisterButtonClick}: IHome) {
       setCurrentScreen("Register");
    }
 
-   function onRegisterComplete(userName: string, password: string, dinosaurColor: PlayerColor, petName: string) {
-      onRegisterButtonClick(userName, password, dinosaurColor, petName);
+   function onRegisterComplete(user: IUser, pet: IPetInfo) {
+      onRegisterButtonClick(user, pet);
       setCurrentScreen("Login");
    }
 
@@ -74,7 +75,22 @@ export function Home({onLoginSubmit, onRegisterButtonClick}: IHome) {
          {
             registerPageOn &&
             <Register onUserRegister={
-               (usernameSubmit, passwordSubmit, petNameSubmit, petColorSubmit) => onRegisterComplete(usernameSubmit, passwordSubmit, petColorSubmit, petNameSubmit) }
+               (usernameSubmit,
+                  passwordSubmit,
+                  petNameSubmit,
+                  petColorSubmit) => onRegisterComplete({
+                  username: usernameSubmit,
+                  password: passwordSubmit
+               }, {
+                  petName: petNameSubmit,
+                  userName: usernameSubmit,
+                  petColor: petColorSubmit,
+                  petFun: 100,
+                  petHungry: 0,
+                  petIsAlive: true,
+                  petAge: 1,
+                  petHeart: 100
+               }) }
             onRegisterCancel={ onRegisterCancel }/>
          }
       </div>

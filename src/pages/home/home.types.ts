@@ -1,4 +1,5 @@
-import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts";
+import {IUser} from "../../hook/Login/login.types.ts";
+import {IPetInfo} from "../../hook/CharacterStorage/characterStorage.types.ts";
 
 export type tHome =
    "Login" |
@@ -7,5 +8,5 @@ export type tHome =
 
 export interface IHome {
    onLoginSubmit: (userName: string, password: string) => void;
-   onRegisterButtonClick: (userName: string, password: string, dinosaurColor: PlayerColor, petName: string) => void;
+   onRegisterButtonClick: (user: IUser, pet: IPetInfo) => void;
 }

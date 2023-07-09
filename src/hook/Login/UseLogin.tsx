@@ -1,40 +1,41 @@
 import {useState} from "react";
 import {IUser} from "./login.types.ts";
+import {useUserStorage} from "../UserStorage/UseUserStorage.tsx";
 
 export const useLogin = () => {
 
+   const {getUser} = useUserStorage();
    const [isAuth, setIsAuth] = useState(false);
+   const [user, setUser] = useState<null | IUser>(null);
 
    function doLogin(username: string, password: string) {
       // HTTP request
       doLoginCall(username, password)
-         .then(data => setIsAuth(data.data))
+         .then(data => {
+            setIsAuth(true);
+            setUser(data.data);
+         })
          .catch(error => {
             console.log(error);
          });
    }
 
-   function doLoginCall(userName: string, password: string): Promise<{ data: boolean }> {
+   async function doLoginCall(userName: string, password: string): Promise<{ data: IUser }> {
+      const foundUser = await getUser(userName);
       return new Promise((resolve, reject) => {
-         const stringUser = localStorage.getItem("users");
-         if (!stringUser) {
-
-            reject({data: false, message: "user is empty"});
-         }
-         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-         const users = JSON.parse(stringUser!) as IUser[];
-         const foundUser = users.find((user) => user.username === userName);
-         if (!foundUser) {
-            reject({data: false, message: "User not found"});
-            return;
-         }
-         if (foundUser.password === password) {
-            resolve({data: true});
-         } else {
-            reject({data: false, message: "User not match with NASA Database"});
-         }
+         setTimeout(() => {
+            if (!foundUser) {
+               reject("User not found");
+               return;
+            }
+            if (foundUser.password !== password) {
+               reject("Wrong password");
+               return;
+            }
+            resolve({data: foundUser});
+         }, 200);
       });
    }
 
-   return {doLogin, isAuth};
+   return {doLogin, isAuth, user};
 };
