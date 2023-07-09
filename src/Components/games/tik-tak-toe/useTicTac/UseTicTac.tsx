@@ -1,114 +1,269 @@
-import {useEffect, useState} from "react";
-import {ITicTacPlayer, IUseTicTac} from "./useTicTac.types.ts";
+import {useEffect, useRef, useState} from "react";
+import {IUseTicTac} from "./useTicTac.types.ts";
 import {ITicTacFieldData, tFieldData} from "../tikTakToeTypes.ts";
+import {IMessage} from "../../../message/message.types.ts";
 
 
-export const useTicTacToe = ({userName}: IUseTicTac) => {
+export const useTicTacToe = ({petName, onWin, onLose}: IUseTicTac) => {
 
    //region Game engine
    const [fields, setFields] = useState(initialFieldsState);
-   const [error, setError] = useState<null | string>(null);
-   const [isPlayerLocked, setIsPlayerLocked] = useState(false);
-   const [turnPlayerIndex, setTurnPlayerIndex] = useState(0);
-   const [players] = useState<ITicTacPlayer[]>([
-      {
-         id: "0",
-         userName: userName,
-         cameCharacter: "X"
-      },
-      {
-         id: "1",
-         userName: getIaName(),
-         cameCharacter: "IA"
-      },
-   ]);
+   const [message, setMessage] = useState<null | IMessage>(null);
+   const [currentTurn, setCurrentTurn] = useState<0 | 1>(0);
+   const [currentPlayer, setCurrentPlayer] = useState(petName);
+   const iaName = useRef("IA: " + getIaName());
+   const [isIAThinking, setIsIAThinking] = useState(false);
+   const markedFields = useRef(0);
 
-
-   function changeTurns(): void {
-
-      setTurnPlayerIndex((prev) => {
-         if (prev + 1 < players.length) {
-            return prev + 1;
-         } else {
-            return 0;
-         }
-      }
-      );
-   }
-
-   useEffect(() => {
-      console.log(turnPlayerIndex);
-   }, [turnPlayerIndex]);
-
-   function showError(error: string): void {
-      setError(error);
+   // Private
+   function showError(message: IMessage, timeOut?: number) {
+      setMessage(message);
       setTimeout(() => {
-         setError(null);
-      }, 1000);
+         setMessage(null);
+      }, timeOut ? timeOut : 1500);
    }
 
-   function doMove(turnPlayerIndex: number, fieldIndex: number, gameCharacter: tFieldData): void {
-      markField(fieldIndex, gameCharacter);
-      changeTurns();
-      console.log({turnPlayerIndex});
+   // Private
+   function doMove(fieldId: number, playerMark: tFieldData): boolean {
+      console.log(`Doing move ${ fieldId }`);
+      if (fieldId < 0) {
+         showError({
+            title: "Invalid movement",
+            message: "Field id must be positive"
+         });
+         return false;
+      }
+      if (fieldId >= fields.length) {
+         showError({
+            title: "Field selected out of bound",
+            message: "Select a valid field"
+         });
+         return false;
+      }
+      setFields((prev) => {
+         const foundField = prev.findIndex((field) => field.index === fieldId);
+         if (prev[foundField].isLocked) {
+            console.log(`Field ${ prev[foundField].index } is locked: ${ prev[foundField].isLocked }`);
+            return prev;
+         } else {
+            const prevCopy = [...prev];
+            prevCopy[foundField].fieldData = playerMark;
+            prevCopy[foundField].isLocked = true;
+            return prevCopy;
+         }
+      });
+      markedFields.current = markedFields.current + 1;
+      return true;
+   }
 
+   // Manage turn change
+   useEffect(() => {
+      if (currentTurn === 0) {
+         setCurrentPlayer(petName.toUpperCase());
+      } else {
+         setCurrentPlayer(iaName.current);
+      }
+   }, [currentTurn, petName]);
+
+
+   // Private
+   function changeTurn() {
+      setCurrentTurn((prev) => {
+         if (prev === 0) {
+            return 1;
+         } else return 0;
+      });
    }
 
    useEffect(() => {
-      if (turnPlayerIndex !== 0) {
-         iAMove();
-         setIsPlayerLocked(true);
+      console.log(markedFields);
+   }, [markedFields]);
 
-      } else {
-         setIsPlayerLocked(false);
+
+   // Private
+   function doIaMove() {
+      setIsIAThinking(true);
+      setTimeout(() => {
+         setFields((prev) => {
+            const filtered = prev.filter((field) => !field.isLocked);
+            const randomIndexFound = Math.floor(Math.random() * filtered.length - 1);
+            console.log(filtered);
+            console.log(randomIndexFound);
+            const prevCopy = structuredClone(prev);
+            if (randomIndexFound !== -1) {
+               prevCopy[filtered[randomIndexFound].index - 1].isLocked = true;
+               prevCopy[filtered[randomIndexFound].index - 1].fieldData = "IA";
+            }
+            return prevCopy;
+         });
+         markedFields.current = markedFields.current + 1;
+         setIsIAThinking(false);
+         changeTurn();
+      }, getRandomTime());
+
+   }
+
+   // Private
+   function getRandomTime(): number {
+      return Math.floor(Math.random()) * 3000 + 3000;
+   }
+
+   // Verify Win Condition
+   useEffect(() => {
+
+
+      const winConditionH1 = [0, 1, 2];
+      const winConditionH2 = [3, 4, 5];
+      const winConditionH3 = [6, 7, 8];
+
+      const winConditionV1 = [0, 3, 6];
+      const winConditionV2 = [1, 4, 7];
+      const winConditionV3 = [2, 5, 8];
+
+      const winConditionX1 = [0, 4, 8];
+      const winConditionX2 = [2, 4, 6];
+
+      console.log(fields[winConditionH1[0]]);
+      console.log(fields[winConditionH1[1]]);
+      console.log(fields[winConditionH1[2]]);
+
+      let isPlayerH1 = true;
+      let isPlayerH2 = true;
+      let isPlayerH3 = true;
+
+      let isPlayerV1 = true;
+      let isPlayerV2 = true;
+      let isPlayerV3 = true;
+
+      let isPlayerX1 = true;
+      let isPlayerX2 = true;
+
+      let isIAH1 = true;
+      let isIAH2 = true;
+      let isIAH3 = true;
+
+      let isIAV1 = true;
+      let isIAV2 = true;
+      let isIAV3 = true;
+
+      let isIAX1 = true;
+      let isIAX2 = true;
+
+      for (let i = 0; i < 3; i++) {
+         //region Player Win
+         // Horizontal
+         if (fields[winConditionH1[i]].fieldData !== "X") {
+            isPlayerH1 = false;
+         }
+         if (fields[winConditionH2[i]].fieldData !== "X") {
+            isPlayerH2 = false;
+         }
+         if (fields[winConditionH3[i]].fieldData !== "X") {
+            isPlayerH3 = false;
+         }
+         // Vertical
+         if (fields[winConditionV1[i]].fieldData !== "X") {
+            isPlayerV1 = false;
+         }
+         if (fields[winConditionV2[i]].fieldData !== "X") {
+            isPlayerV2 = false;
+         }
+         if (fields[winConditionV3[i]].fieldData !== "X") {
+            isPlayerV3 = false;
+         }
+         // X condition
+         if (fields[winConditionX1[i]].fieldData !== "X") {
+            isPlayerX1 = false;
+         }
+         if (fields[winConditionX2[i]].fieldData !== "X") {
+            isPlayerX2 = false;
+         }
+         //endregion Player Win
+
+         //region IA win
+         // Horizontal
+         if (fields[winConditionH1[i]].fieldData !== "IA") {
+            isIAH1 = false;
+         }
+         if (fields[winConditionH2[i]].fieldData !== "IA") {
+            isIAH2 = false;
+         }
+         if (fields[winConditionH3[i]].fieldData !== "IA") {
+            isIAH3 = false;
+         }
+         // Vertical
+         if (fields[winConditionV1[i]].fieldData !== "IA") {
+            isIAV1 = false;
+         }
+         if (fields[winConditionV2[i]].fieldData !== "IA") {
+            isIAV2 = false;
+         }
+         if (fields[winConditionV3[i]].fieldData !== "IA") {
+            isIAV3 = false;
+         }
+         // X condition
+         if (fields[winConditionX1[i]].fieldData !== "IA") {
+            isIAX1 = false;
+         }
+         if (fields[winConditionX2[i]].fieldData !== "IA") {
+            isIAX2 = false;
+         }
+         //endregion IA Win
       }
-   }, [turnPlayerIndex]);
 
-   function markField(fieldId: number, gameCharacter: tFieldData) {
-      if (fieldId < 0 || fieldId > fields.length) {
-         showError("fieldId incorrect");
+      if (isPlayerH1 ||
+         isPlayerH2 ||
+         isPlayerH3 ||
+         isPlayerV1 ||
+         isPlayerV2 ||
+         isPlayerV3 ||
+         isPlayerX1 ||
+         isPlayerX2) {
+         console.log("Player Won");
+         onWin();
          return;
       }
 
-      const fieldIndex = fields.findIndex((field) => field.index === fieldId);
-      const fieldCopy = structuredClone(fields);
-      fieldCopy[fieldIndex].fieldData = gameCharacter;
-      fieldCopy[fieldIndex].isLocked = true;
-      setFields(fieldCopy);
-   }
+      if (
+         isIAH1 ||
+         isIAH2 ||
+         isIAH3 ||
+         isIAV1 ||
+         isIAV2 ||
+         isIAV3 ||
+         isIAX1 ||
+         isIAX2
+      ) {
+         onLose();
+         return;
+      }
 
-   useEffect(() => {
-      console.log({turnPlayerIndex});
-   }, [turnPlayerIndex]);
 
-   function getIaName(): string {
-      const randomIndex = Math.floor(Math.random() * possibleIaNames.length);
-      return possibleIaNames[randomIndex];
-   }
+   }, [fields]);
 
-   //endregion Game engine
-
-   function iAMove() {
-      const fieldsCopy = structuredClone(fields);
-      const unlockedFields = fieldsCopy.filter((field) => !field.isLocked);
-      const randomPick = Math.floor(Math.random() * unlockedFields.length);
-      console.log("IA move", {unlockedFields});
-      doMove(1, randomPick, "IA");
-
-   }
-
-   function playerMove(fieldIndex: number): void {
-      if (!isPlayerLocked) {
-         doMove(0, fieldIndex, "X");
-
+   function doPlayerMove(fieldId: number) {
+      if (doMove(fieldId, "X")) {
+         changeTurn();
+         doIaMove();
       }
    }
 
-   return {playerMove, fields, error};
+
+   return {
+      message,
+      isIAThinking,
+      doPlayerMove,
+      fields,
+      currentPlayer
+   };
 };
 
-
 const possibleIaNames = ["tribe", "place", "drive", "where", "trouble"];
+
+function getIaName(): string {
+   const random = Math.floor(Math.random() * possibleIaNames.length - 1);
+   return possibleIaNames[random];
+}
 
 const initialFieldsState: ITicTacFieldData[] = [
    {

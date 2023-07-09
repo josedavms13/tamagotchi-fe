@@ -1,6 +1,7 @@
 import {ILoginPageTypes} from "./loginPageTypes.ts";
 import "./loginPageStyles.css";
-import {useState} from "react";
+import React, {useState} from "react";
+import {Message} from "../../Components/message/Message.tsx";
 
 export function LoginPage({
    onLoginSubmit,
@@ -67,19 +68,5 @@ export function LoginPage({
    );
 }
 
-interface IMessage {
-   title: string,
-   message: string;
-}
 
 
-function Message({
-   title, message,
-}: IMessage) {
-   return (
-      <div>
-         <h6>{ title }</h6>
-         <p>{ message }</p>
-      </div>
-   );
-}

@@ -1,8 +1,6 @@
 
 .square{
-    height: 100%;
-    width: calc(100% / 3);
-    border: black solid 1px;
+    border: black solid 2px;
 
     display: flex;
     text-align: center;
@@ -13,5 +11,5 @@
 }
 
 .square:hover{
-    background-color: gray;
+    background-color: #34f8ff;
 }

@@ -1,4 +1,3 @@
-import {IMessage, IRegisterTypes} from "./resgisterTypes.ts";
 import "./resgisterStyles.css";
 import {useEffect, useState} from "react";
 import greenDinosaur from "../../assets/sprites/dinocharacters/gifs/DinoSprites_green.gif";
@@ -6,6 +5,9 @@ import yellowDinosaur from "../../assets/sprites/dinocharacters/gifs/DinoSprites
 import blueDinosaur from "../../assets/sprites/dinocharacters/gifs/DinoSprites_blue.gif";
 import redDinosaur from "../../assets/sprites/dinocharacters/gifs/DinoSprites_red.gif";
 import {PlayerColor} from "../../hook/playerCharacter/usePlayerCharacterTypes.ts";
+import {Message} from "../../Components/message/Message.tsx";
+import {IMessage} from "../../Components/message/message.types.ts";
+import {IRegisterTypes} from "./resgisterTypes.ts";
 
 export function Register({onUserRegister, onRegisterCancel}: IRegisterTypes) {
 
@@ -160,11 +162,3 @@ export function Register({onUserRegister, onRegisterCancel}: IRegisterTypes) {
    </div>;
 }
 
-function Message({title, message}: IMessage) {
-   return (
-      <div>
-         <h6>{ title }</h6>
-         <p>{ message }</p>
-      </div>
-   );
-}

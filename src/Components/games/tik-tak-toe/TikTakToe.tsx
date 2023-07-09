@@ -1,45 +1,41 @@
-import {useEffect, useState} from "react";
 import "./tikTakToe.css";
-import {ITicTacFieldData} from "./tikTakToeTypes.ts";
+import {ITicTacToe} from "./tikTakToeTypes.ts";
 import {Field} from "./field/Field.tsx";
 import {useTicTacToe} from "./useTicTac/UseTicTac.tsx";
-import {v4} from "uuid";
+import {TicTacMessage} from "./ticTacMessage/TicTacMessage.tsx";
 
-export function TikTakToe() {
+export function TikTakToe({petName, onCancel, onLose, onWin, onEven}: ITicTacToe) {
 
-   const {fields, playerMove, error} = useTicTacToe({userName: "Juan"});
-
-
-   const [rowsData, setRowsData] = useState<ITicTacFieldData[][]>([]);
-
-   useEffect(() => {
-      const resultArray: ITicTacFieldData[][] = [];
-      const fieldsCopy = [...fields];
-      for (let i = 0; i < 3; i++) {
-         const sliced = fieldsCopy.splice(0, 3);
-         resultArray.push(sliced);
-      }
-      setRowsData(resultArray);
-   }, [fields]);
-
-   function markField(fieldIndex: number) {
-      playerMove(fieldIndex);
-   }
+   const {
+      doPlayerMove,
+      fields,
+      currentPlayer,
+      isIAThinking,
+   } = useTicTacToe({petName, onWin, onLose, onEven});
 
    return (
-      <div className="general-container">
+      <div className="tic-tac-toe">
+         <h1>Tic Tac Toe</h1>
+         <h4>{ currentPlayer.toUpperCase() }</h4>
          {
-            rowsData && rowsData.length > 0 &&
-            rowsData.map((row: ITicTacFieldData[]) => (
-               <div key={v4()} className="row">
-                  {
-                     row.map((field: ITicTacFieldData) => (
-                        <Field key={v4()} id={ field.index } fieldMark={ field.fieldData } isLocked={ field.isLocked }
-                           onFieldSelected={ markField }/>
-                     ))
-                  }
-               </div>
-            ))
+            fields &&
+            <div className={ "tic-tac-toe-container" }>
+               {
+                  fields.map((field) => <Field
+                     key={ field.index }
+                     id={ field.index }
+                     fieldMark={ field.fieldData }
+                     isLocked={ field.isLocked }
+                     onFieldSelected={ doPlayerMove }/>)
+               }
+            </div>
+         }
+         <button onClick={ onCancel }>
+            Cancel
+         </button>
+         {
+            isIAThinking &&
+            <TicTacMessage/>
          }
       </div>
    );

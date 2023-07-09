@@ -18,7 +18,6 @@ function App() {
    const [petCharacter, setPetCharacter] = useState<null | IPetInfo>(null);
    //endregion Session state Management
 
-
    //region Page Management
    const [currentScreen, setCurrentScreen] = useState<appScreen>("home");
    const [showScreen, setShowScreen] = useState(false);

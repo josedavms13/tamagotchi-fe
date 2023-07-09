@@ -1,4 +1,5 @@
 export interface IPlayerFormTypes {
    onSinglePlayerClick:()=>void,
-   onMultiPlayerClick: ()=>void
+   onMultiPlayerClick: ()=>void,
+   onCancel: ()=> void,
 }
