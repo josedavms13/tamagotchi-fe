@@ -1,7 +1,8 @@
 import {ILoginPageTypes} from "./loginPageTypes.ts";
 import "./loginPageStyles.css";
-import React, {useState} from "react";
+import {useState} from "react";
 import {Message} from "../../Components/message/Message.tsx";
+import {IMessage} from "../../Components/message/message.types.ts";
 
 export function LoginPage({
    onLoginSubmit,
