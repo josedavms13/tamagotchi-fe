@@ -3,6 +3,7 @@ import {ITicTacToe} from "./tikTakToeTypes.ts";
 import {Field} from "./field/Field.tsx";
 import {useTicTacToe} from "./useTicTac/UseTicTac.tsx";
 import {TicTacMessage} from "./ticTacMessage/TicTacMessage.tsx";
+import {useEffect, useState} from "react";
 
 export function TikTakToe({petName, onCancel, onLose, onWin, onEven}: ITicTacToe) {
 
@@ -12,6 +13,16 @@ export function TikTakToe({petName, onCancel, onLose, onWin, onEven}: ITicTacToe
       currentPlayer,
       isIAThinking,
    } = useTicTacToe({petName, onWin, onLose, onEven});
+
+   const [showMessage, setShowMessage] = useState(false);
+
+   useEffect(() => {
+      setShowMessage(true);
+      setTimeout(()=> {
+         setShowMessage(false);
+      }, 6000);
+   }, []);
+
 
    return (
       <div className="tic-tac-toe">
@@ -36,6 +47,11 @@ export function TikTakToe({petName, onCancel, onLose, onWin, onEven}: ITicTacToe
          {
             isIAThinking &&
             <TicTacMessage/>
+         }
+         {
+            showMessage &&
+            <TicTacMessage title={ "Attention" } message={ "IA has a chance to override a movement from player" } />
+
          }
       </div>
    );

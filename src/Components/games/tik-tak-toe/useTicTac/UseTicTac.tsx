@@ -237,8 +237,7 @@ export const useTicTacToe = ({petName, onWin, onLose}: IUseTicTac) => {
          onLose();
          return;
       }
-
-
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [fields]);
 
    function doPlayerMove(fieldId: number) {
@@ -247,7 +246,6 @@ export const useTicTacToe = ({petName, onWin, onLose}: IUseTicTac) => {
          doIaMove();
       }
    }
-
 
    return {
       message,

@@ -18,6 +18,7 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
       ageCharacter,
       hungryCharacter,
       funCharacter,
+      happinessModify,
    } = usePlayerCharacter({
       isAlive: petIsAlive,
       fun: petFun,
@@ -68,6 +69,7 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
    function backToGame() {
       setCurrentScreen("game");
    }
+
    //endregion Page Management
 
    //region Header
@@ -110,21 +112,26 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
    function openPlayTogether() {
       setCurrentScreen("playTogether");
    }
+
    // endregion PlayTogether
 
    function onPlayerWin() {
       console.log("player win");
+      happinessModify(8);
+      setCurrentScreen("game");
    }
 
    function onPlayerLose() {
       console.log("player lose");
+      happinessModify(-5);
+      setCurrentScreen("game");
    }
 
    function onEven() {
       console.log("even");
+      happinessModify(-2);
+      setCurrentScreen("game");
    }
-
-
 
 
    return (
@@ -158,7 +165,8 @@ export function Screen({petIsAlive, petName, petAge, petFun, petHeart, petHungry
          }
          {
             showTicTacToe &&
-            <TikTakToe petName={petName} onLose={onPlayerLose} onWin={onPlayerWin} onEven={onEven} onCancel={backToGame}/>
+            <TikTakToe petName={ petName } onLose={ onPlayerLose } onWin={ onPlayerWin } onEven={ onEven }
+               onCancel={ backToGame }/>
          }
       </div>
    );
